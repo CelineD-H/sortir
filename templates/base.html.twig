@@ -25,6 +25,10 @@
                     <h1 style="font-family: 'Bruno Ace', cursive;">AdopteUnDev.com</h1>
                     <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
                 </div>
+                <div></div>
+                {% if app.user %}
+                    <img src="{{ asset("img/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar">
+                {% endif %}
             </div>
             {% include 'inc/nav.html.twig' %}
         </header>
