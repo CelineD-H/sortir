@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <link rel="icon" href="{{ asset('img/icon.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bruno+Ace&display=swap" rel="stylesheet">
 
     <title>{% block title %} AdopteUnDev.com {% endblock %}</title>
 </head>
@@ -19,7 +22,7 @@
             <div class="header-title">
                 <a href="{{ path('app_home') }}"><img src="{{ asset('img/logo.png') }}" alt="Logo du site" width="150"></a>
                 <div class="header-body">
-                    <h1>AdopteUnDev.com</h1>
+                    <h1 style="font-family: 'Bruno Ace', cursive;">AdopteUnDev.com</h1>
                     <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
                 </div>
             </div>
