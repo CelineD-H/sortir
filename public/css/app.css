@@ -54,6 +54,17 @@ main {
     padding: 5px 0;
 }
 
+label {
+    display: block;
+}
+
+input, textarea, select {
+    margin-bottom: 1rem;
+    box-sizing: border-box;
+    width: 150px;
+    max-width: 50%;
+}
+
 footer > div {
     padding: 15px;
     margin: auto;
