@@ -9,9 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class MonControleur extends AbstractController
 {
-    /**
-     * @Route("/participants", name="participants)
-     */
+    #[Route('/participants', name: 'participants')]
     public function listeParticipants(): Response
 
     {
@@ -23,9 +21,7 @@ class MonControleur extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/sorties", name="sorties")
-     */
+    #[Route('/sorties', name: 'sorties')]
     public function listeSorties(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Sortie::class);
@@ -36,9 +32,7 @@ class MonControleur extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/campus", name="campus")
-     */
+    #[Route('/campus', name: 'campus')]
     public function listeCampus(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Campus::class);
@@ -49,9 +43,7 @@ class MonControleur extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/lieux", name="lieux")
-     */
+    #[Route('/lieux', name: 'lieux')]
     public function listeLieux(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Lieu::class);
@@ -62,9 +54,7 @@ class MonControleur extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/villes", name="villes")
-     */
+    #[Route('/villes', name: 'villes')]
     public function listeVilles(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Ville::class);
@@ -75,9 +65,7 @@ class MonControleur extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/etats", name="etats")
-     */
+    #[Route('/etats', name: 'etats')]
     public function listeEtats(): Response
     {
         $repository = $this->getDoctrine()->getRepository(Etat::class);
