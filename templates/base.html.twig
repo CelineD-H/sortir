@@ -15,16 +15,23 @@
     <div class="container">
         <header>
             <div class="header-title">
-                <h1>AdopteUnDev.com</h1>
-                <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
+                <img src="{{ asset('img/logo.png') }}" alt="Logo du site" width="200">
+                <div class="header-body">
+                    <h1>AdopteUnDev.com</h1>
+                    <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
+                </div>
             </div>
             {% include 'inc/nav.html.twig' %}
         </header>
         <main>
-            {% block body %}{% endblock %}
+            <div class="main">
+                {% block body %}{% endblock %}
+            </div>
+
         </main>
         <footer>
-
+            <div>&copy; {{ "now"|date("Y") }} - AdopteUnDev.com</div>
+            {# <p>"En  attendant de trouver l'amour, nous vous disons .."</p> #}
         </footer>
     </div>
 
