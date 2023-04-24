@@ -16,7 +16,7 @@ nav ul {
     background: #AAA;
     display: flex;
     list-style: none;
-    border-radius: 0px 0px 10px 10px;
+    border-radius: 0 0 10px 10px;
 }
 
 nav li:hover {
