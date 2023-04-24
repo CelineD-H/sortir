@@ -3,18 +3,18 @@ header {
 }
 
 .header-title {
-    margin: 15px;
+    padding: 15px;
 }
 
 nav ul {
     background: #AAA;
     display: flex;
     list-style: none;
-    padding: 0;
 }
 
 nav li {
-    margin-right: 3rem;
+    margin: 0 3rem 0 0;
+    padding: 5px 0;
 }
 
 body {
