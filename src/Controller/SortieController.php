@@ -46,7 +46,7 @@ class SortieController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        return $this->render('serie/view.html.twig', [
+        return $this->render('sortie/view.html.twig', [
             "sortie" => $sortie
         ]);
     }
