@@ -12,6 +12,9 @@ class MainController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function list(SortieRepository $sortieRepository): Response
     {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
         $sorties = $sortieRepository->findAll();
 
         return $this->render('main/index.html.twig', [
