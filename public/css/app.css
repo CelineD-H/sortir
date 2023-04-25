@@ -73,6 +73,7 @@ input, textarea, select, label {
     box-sizing: border-box;
     width: 250px;
     max-width: 50%;
+    border-radius: 5px;
 }
 
 #remember {
