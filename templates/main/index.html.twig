@@ -5,5 +5,40 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Page d'accueil de mon site.</h3>
+    <p>{{ "now" | date ("d/m/Y") }}</p>
+    <p>{{ app.user.pseudo }}</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th colspan="8">Liste des sorties</th>
+            </tr>
+        </thead>
+            <tbody>
+                <tr>
+                    <th>Nom de la sortie</th>
+                    <th>Date de la sortie</th>
+                    <th>Clôture</th>
+                    <th>Inscrits/Places</th>
+                    <th>Etat</th>
+                    <th>Inscrit</th>
+                    <th>Organisateur</th>
+                    <th>Actions</th>
+                </tr>
+                {% for sortie in sorties %}
+                <tr>
+                        <td>{{ sortie.nom }}</td>
+                        <td>{{ sortie.dateHeureDebut | date('d/m/Y')}}</td>
+                        <td>{{ sortie.dateLimiteInscription | date('d/m/Y')}}</td>
+                        <td>{{ sortie.nbInscriptionsMax }}</td>
+                        <td>{{ sortie.etat }}</td>
+                        <td>todo:inscrit?</td>
+                        <td>Organisateur</td>
+                        <td>Afficher</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+
+
 {% endblock %}

@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\DateTime;
 class SortieController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function index(Request $request, EntityManagerInterface $entityManager): Response
+    public function createSortie(Request $request, EntityManagerInterface $entityManager): Response
     {
         $sortie = new Sortie();
         $sortie->setEtat(0);
@@ -50,4 +50,5 @@ class SortieController extends AbstractController
             "sortie" => $sortie
         ]);
     }
+
 }
