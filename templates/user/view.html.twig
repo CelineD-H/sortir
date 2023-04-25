@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | {{ user.pseudo }}{% endblock %}
+
+{% block body %}
+
+    <div class="view">
+        <img src="{{ asset("img/" ~ user.avatar) }}" alt="avatar de {{ user.pseudo }}">
+
+        <div>
+            <h1>{{ user.pseudo }}</h1>
+            <p>Prénom : {{ user.firstName }}</p>
+            <p>Nom : {{ user.lastName }}</p>
+            <p>Téléphone : {{ user.telephone }}</p>
+            <p>Email : {{ user.email }}</p>
+        </div>
+    </div>
+    <button>Retour</button>
+
+{% endblock %}

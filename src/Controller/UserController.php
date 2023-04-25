@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\ModificationProfilType;
+use App\Repository\SortieRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +31,20 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'ModificationProfilForm' => $form->createView()
+        ]);
+    }
+
+    #[Route('/view/{id}', name: 'view')]
+    public function details(int $id, UserRepository $userRepository): Response
+    {
+        $user = $userRepository->find($id);
+
+        if(!$user) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('user/view.html.twig', [
+            "user" => $user
         ]);
     }
 }
