@@ -30,14 +30,23 @@
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut | date('d/m/Y')}}</td>
                         <td>{{ sortie.dateLimiteInscription | date('d/m/Y')}}</td>
-                        <td>{{ sortie.nbInscriptionsMax }}</td>
+                        <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
                         <td>{{ sortie.etat }}</td>
-                        <td>todo:inscrit?</td>
-                        <td>Organisateur</td>
+                        <td>{% if(sortie.participants.contains(app.user)) %}
+                                oui
+                            {% else %}
+                                non
+                            {% endif %}</td>
+                        <td>{{ sortie.organisateur.pseudo }}</td>
                         <td>Afficher</td>
                 </tr>
                 {% endfor %}
             </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="8">Total sorties : {{ sorties|length }}</td>
+        </tr>
+        </tfoot>
     </table>
 
 
