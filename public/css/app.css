@@ -4,7 +4,7 @@ header {
 }
 
 .header-title {
-    padding: 0 120px;
+    padding: 0 80px;
     display: flex;
 }
 
@@ -18,18 +18,23 @@ header h1 {
 }
 
 nav ul {
-    background: #AAA;
+    /*background: #AAA;*/
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("../img/leopardskin.jpg");
     display: flex;
     list-style: none;
     border-radius: 0 0 10px 10px;
 }
 
 nav li:hover {
-    background-color: #cf70a0;
+    background-color: rgba(207, 102, 160, 0.7);
 }
 
 nav li {
     padding: 1rem;
+}
+nav a {
+    text-decoration: none;
+    color: #e0e0e0;
 }
 
 body {
