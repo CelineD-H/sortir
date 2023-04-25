@@ -17,11 +17,11 @@ class Sortie
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $dateHeureDebut = null;
 
-    #[ORM\Column]
-    private ?int $duree = null;
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    private ?\DateTimeInterface $duree = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $dateLimiteInscription = null;
@@ -64,12 +64,12 @@ class Sortie
         return $this;
     }
 
-    public function getDuree(): ?int
+    public function getDuree(): ?\DateTimeInterface
     {
         return $this->duree;
     }
 
-    public function setDuree(int $duree): self
+    public function setDuree(\DateTimeInterface $duree): self
     {
         $this->duree = $duree;
 

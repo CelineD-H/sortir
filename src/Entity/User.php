@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\{Bridge\Doctrine\Validator\Constraints\UniqueEntity,
+    Component\Security\Core\User\PasswordAuthenticatedUserInterface,
+    Component\Security\Core\User\UserInterface,
+    Component\Validator\Constraints as Assert};
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: 'Adresse mail déjà utilisée')]
+#[UniqueEntity(fields: ['pseudo'], message: 'Pseudo déjà utilisé')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -38,13 +40,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?bool $actif = null;
 
-    #[ORM\Column(length: 30)]
+    #[ORM\Column(length: 30, unique: true)]
     private ?string $pseudo = null;
 
     #[ORM\Column(length: 255)]
     private ?string $avatar = null;
 
     #[ORM\Column(length: 20)]
+    #[Assert\Regex(
+        pattern: '/^(\+33|0033|0)(6|7)[0-9]{8}$/',
+        message: 'Format téléphone non conforme',
+        match: true,
+    )]
     private ?string $telephone = null;
 
     public function getId(): ?int
