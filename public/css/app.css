@@ -134,6 +134,7 @@ table {
     background-color: #ff33cc;
     width: 100%;
     border-radius: 5px;
+    margin-top: 1rem;
 }
 th {
     letter-spacing: 2px;
