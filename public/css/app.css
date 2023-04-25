@@ -59,11 +59,16 @@ label {
     display: block;
 }
 
-input, textarea, select {
+input, textarea, select, label {
     margin-bottom: 1rem;
     box-sizing: border-box;
     width: 250px;
     max-width: 50%;
+}
+
+#remember {
+    width: auto;
+
 }
 
 footer > div {
