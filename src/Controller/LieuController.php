@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Lieu;
 use App\Form\LieuFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,12 +23,11 @@ class LieuController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($lieu);
             $entityManager->flush();
-
-
-            return $this->render('lieu/index.html.twig', [
-                'lieuForm' => 'LieuController',
-            ]);
         }
+
+        return $this->render('lieu/index.html.twig', [
+            'lieuForm' => $form->createView(),
+        ]);
     }
 }
 
