@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\ModificationProfilType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,15 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     #[Route('/profil', name: 'app_profil')]
-    public function index(Request $request): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ModificationProfilType::class);
+        $user = $this->getUser();
+        $form = $this->createForm(ModificationProfilType::class, $user);
         $form->handleRequest($request);
 
-
-
         if($form->isSubmitted() && $form->isValid()) {
-            //TODO: faire les actions d'édition de l'user
+            $entityManager->persist($user);
+            $entityManager->flush();
         }
 
         return $this->render('user/index.html.twig', [
