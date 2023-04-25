@@ -25,9 +25,8 @@
                     <h1>AdopteUnDev.com</h1>
                     <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
                 </div>
-                <div></div>
                 {% if app.user %}
-                    <a href="{{ path('app_profil') }}"><img src="{{ asset("img/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar"></a>
+                    <a class="avatarBox" href="{{ path('app_profil') }}"><img src="{{ asset("img/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar">{{ app.user.pseudo }}</a>
                 {% endif %}
             </div>
             {% include 'inc/nav.html.twig' %}
