@@ -22,12 +22,12 @@
             <div class="header-title">
                 <a href="{{ path('app_home') }}"><img src="{{ asset('img/logo.png') }}" alt="Logo du site" width="150"></a>
                 <div class="header-body">
-                    <h1 style="font-family: 'Bruno Ace', cursive;">AdopteUnDev.com</h1>
+                    <h1>AdopteUnDev.com</h1>
                     <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
                 </div>
                 <div></div>
                 {% if app.user %}
-                    <img src="{{ asset("img/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar">
+                    <a href="{{ path('app_profil') }}"><img src="{{ asset("img/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar"></a>
                 {% endif %}
             </div>
             {% include 'inc/nav.html.twig' %}
