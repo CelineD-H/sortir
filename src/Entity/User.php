@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\{Bridge\Doctrine\Validator\Constraints\UniqueEntity,
     Component\Security\Core\User\PasswordAuthenticatedUserInterface,
@@ -53,6 +55,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         match: true,
     )]
     private ?string $telephone = null;
+
+    #[ORM\OneToMany(mappedBy: 'organisateur', targetEntity: Sortie::class)]
+    private Collection $organisateur;
+
+    #[ORM\ManyToMany(targetEntity: Sortie::class, mappedBy: 'participants')]
+    private Collection $sorties;
+
+    public function __construct()
+    {
+        $this->organisateur = new ArrayCollection();
+        $this->sorties = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -192,6 +206,63 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTelephone(string $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getOrganisateur(): Collection
+    {
+        return $this->organisateur;
+    }
+
+    public function addOrganisateur(Sortie $organisateur): self
+    {
+        if (!$this->organisateur->contains($organisateur)) {
+            $this->organisateur->add($organisateur);
+            $organisateur->setOrganisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganisateur(Sortie $organisateur): self
+    {
+        if ($this->organisateur->removeElement($organisateur)) {
+            // set the owning side to null (unless already changed)
+            if ($organisateur->getOrganisateur() === $this) {
+                $organisateur->setOrganisateur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSorties(): Collection
+    {
+        return $this->sorties;
+    }
+
+    public function addSorty(Sortie $sorty): self
+    {
+        if (!$this->sorties->contains($sorty)) {
+            $this->sorties->add($sorty);
+            $sorty->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSorty(Sortie $sorty): self
+    {
+        if ($this->sorties->removeElement($sorty)) {
+            $sorty->removeParticipant($this);
+        }
 
         return $this;
     }

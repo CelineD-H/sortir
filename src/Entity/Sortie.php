@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -34,6 +36,18 @@ class Sortie
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $etat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'organisateur')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $organisateur = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sorties')]
+    private Collection $participants;
+
+    public function __construct()
+    {
+        $this->participants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -120,6 +134,42 @@ class Sortie
     public function setEtat(int $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?User
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?User $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(User $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants->add($participant);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(User $participant): self
+    {
+        $this->participants->removeElement($participant);
 
         return $this;
     }
