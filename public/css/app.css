@@ -92,3 +92,20 @@ footer > div {
     width: 80px;
     height: 120px;
 }
+
+.flash {
+    padding: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+    color: #1c001c;
+}
+
+.flash-success {
+    background-color: lightgreen;
+}
+
+.flash-error {
+    background-color: lightcoral;
+}

@@ -22,6 +22,9 @@ class UserController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($user);
             $entityManager->flush();
+
+            $this->addFlash('success', "Profil modifié avec succès !");
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('user/index.html.twig', [
