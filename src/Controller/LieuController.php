@@ -10,9 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Route('/lieu', name: 'lieu_')]
 class LieuController extends AbstractController
 {
-    #[Route('/lieu', name: 'app_lieu')]
+    #[Route('/create', name: 'create')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $lieu = new Lieu();
@@ -25,7 +26,7 @@ class LieuController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->render('lieu/index.html.twig', [
+        return $this->render('lieu/create.html.twig', [
             'lieuForm' => $form->createView(),
         ]);
     }
