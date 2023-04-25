@@ -14,6 +14,11 @@ class LieuController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $lieu = new Lieu();
+
+
+
+
+
         return $this->render('lieu/index.html.twig', [
             'lieuForm' => 'LieuController',
         ]);
