@@ -15,8 +15,8 @@
             La sortie a déjà commencée et prendra fin le {{ dateExpirationString }} !
         </div>
     {% elseif "now"|date('Y-m-d H:i:s') > dateExpiration|date('Y-m-d H:i:s')  %}
-        <div class="flash flash-error">
-            La sortie a expirée !
+        <div class="flash flash-success">
+            La sortie est terminée depuis le {{ dateExpirationString}} !
         </div>
     {% endif %}
 
@@ -47,7 +47,7 @@
                     </p>
                     <ul>
                         {% for participant in sortie.participants %}
-                            <li>{{ participant.firstName }} {{ participant.lastName }}</li>
+                            <li><a href="{{ path('user_view', { 'id': participant.id }) }}">{{ participant.firstName }} {{ participant.lastName }}</a></li>
                         {% endfor %}
                     </ul>
                     {% if sortie.participants|length < sortie.nbInscriptionsMax %}
