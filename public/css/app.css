@@ -228,12 +228,12 @@ thead th {
     color: #e495e4;
 }
 
-.sortie-details {
+/*.sortie-details {
     display: block;
     height: 360px;
     background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     border-radius: 15px;
-}
+}*/
 
 .bg-danger {
     background-color: red!important;
