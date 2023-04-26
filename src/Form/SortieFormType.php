@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -30,6 +31,14 @@ class SortieFormType extends AbstractType
             ])
             ->add('nbInscriptionsMax')
             ->add('infosSortie')
+            ->add('lieu', EntityType::class, [
+                'class' => 'App\Entity\Lieu',
+                'choice_label' => 'nom'
+            ])
+            ->add('campus', EntityType::class, [
+                'class' => 'App\Entity\Campus',
+                'choice_label' => 'nom'
+            ])
         ;
     }
 
