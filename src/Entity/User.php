@@ -10,6 +10,7 @@ use Symfony\{Bridge\Doctrine\Validator\Constraints\UniqueEntity,
     Component\Security\Core\User\PasswordAuthenticatedUserInterface,
     Component\Security\Core\User\UserInterface,
     Component\Validator\Constraints as Assert};
+use phpDocumentor\Reflection\Types\Integer;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Adresse mail déjà utilisée')]
@@ -92,7 +93,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string) $this->pseudo;
     }
 
     /**
@@ -266,4 +267,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
 }

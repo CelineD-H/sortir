@@ -5,5 +5,58 @@
 {% endblock %}
 
 {% block body %}
-    {{ sortie.nom }}
+
+    {% if sortie.etat == 1 %}
+        <div class="flash flash-error">
+            La sortie a été annulée pour la raison suivante : {{ sortie.deleteMessage }}
+        </div>
+    {% elseif "now"|date('Y-m-d H:i:s') > sortie.dateHeureDebut|date('Y-m-d H:i:s') and "now"|date('Y-m-d H:i:s') < dateExpiration|date('Y-m-d H:i:s') %}
+        <div class="flash flash-success">
+            La sortie a déjà commencée et prendra fin le {{ dateExpirationString }} !
+        </div>
+    {% elseif "now"|date('Y-m-d H:i:s') > dateExpiration|date('Y-m-d H:i:s')  %}
+        <div class="flash flash-success">
+            La sortie est terminée depuis le {{ dateExpirationString}} !
+        </div>
+    {% endif %}
+
+        <div class="view-head">
+            <div class="sortie-organisation">
+                <h2>Organisateur</h2>
+                <img src="{{ asset("img/" ~ sortie.organisateur.avatar) }}" alt="avatar de {{ sortie.organisateur.firstName }}" width="100">
+                <h3>{{ sortie.organisateur.firstName }}</h3>
+                <h3>{{ sortie.organisateur.lastName }}</h3>
+            </div>
+
+            <div class="sortie-infos">
+                <div class="item">
+                    {% if sortie.organisateur is same as(app.user) and sortie.etat == 0 %}
+                        <a href="{{ path('sortie_delete', { 'id': sortie.id }) }}">[ Supprimer ]</a>
+                    {% endif %}
+                    <h1>{{ sortie.nom }}</h1>
+                    <p>Heure de début : {{ sortie.dateHeureDebut | date('d/m/Y')}}</p>
+                    <p>Durée : {{ sortie.duree | date('H:i') }}</p>
+                    <p>Liste des participants : ({{ sortie.participants|length }}/{{ sortie.nbInscriptionsMax }})
+                        {% if sortie.participants.contains(app.user) and "now"|date('Y-m-d') < sortie.dateHeureDebut|date('Y-m-d') and sortie.etat == 0 %}
+                            <a href="{{ path('sortie_quit', { 'id': sortie.id }) }}">[ Je me retire ! ]</a>
+                        {% else %}
+                            {% if sortie.participants|length < sortie.nbInscriptionsMax and "now"|date('Y-m-d') < sortie.dateLimiteInscription|date('Y-m-d') and sortie.etat == 0 %}
+                                <a href="{{ path('sortie_join', { 'id': sortie.id }) }}">[ Je m'inscris ! ]</a>
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                    <ul>
+                        {% for participant in sortie.participants %}
+                            <li><a href="{{ path('user_view', { 'id': participant.id }) }}">{{ participant.firstName }} {{ participant.lastName }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% if sortie.participants|length < sortie.nbInscriptionsMax %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="view-body sortie-details">
+            <p>{{ sortie.infosSortie }}</p>
+        </div>
 {% endblock %}
