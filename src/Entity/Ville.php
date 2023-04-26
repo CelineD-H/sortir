@@ -19,7 +19,7 @@ class Ville
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::INTEGER)]
     private ?int $codePostal = null;
 
     #[ORM\OneToMany(mappedBy: 'Ville', targetEntity: Lieu::class)]

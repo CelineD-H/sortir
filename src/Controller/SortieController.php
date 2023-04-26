@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Sortie;
 use App\Form\SortieDeleteFormType;
 use App\Form\SortieFormType;
+use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,11 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createSortie(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function createSortie(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository): Response
     {
         $user = $userRepository->find($this->getUser());
+        $etat = $etatRepository->find(1);
+
         $sortie = new Sortie();
-        $sortie->setEtat(0);
+        $sortie->setEtat($etat);
         $sortie->setOrganisateur($user);
         $sortie->addParticipant($user);
 
@@ -32,6 +35,7 @@ class SortieController extends AbstractController
 
             $entityManager->persist($sortie);
             $entityManager->flush();
+
 
             return $this->redirectToRoute('sortie_view', [
                 'id' => $sortie->getId()
