@@ -4,7 +4,6 @@
 
         {% if app.user %}
             <a href="{{ path('ville_create') }}" title="Ville"><li>Ville</li></a>
-            <a href="{{ path('etat_create') }}" title="Etat"><li>Etat</li></a>
             <a href="{{ path('campus_create') }}" title="Campus"><li>Campus</li></a>
             <a href="{{ path('user_view', {'id': app.user.id}) }}" title="Profil"><li>Mon profil</li></a>
             {% if is_granted('ROLE_ADMIN') %}
