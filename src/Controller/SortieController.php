@@ -101,6 +101,13 @@ class SortieController extends AbstractController
     {
         $user = $userRepository->find($this->getUser());
         $sortie = $repository->find($id);
+
+        if($user !== $sortie->getOrganisateur()) {
+            return $this->redirectToRoute('sortie_view', [
+                'id' => $id
+            ]);
+        }
+
         $sortie->setEtat(1);
 
         $form = $this->createForm(SortieDeleteFormType::class, $sortie);
