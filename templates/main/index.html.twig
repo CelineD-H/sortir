@@ -26,7 +26,7 @@
                 </tr>
                 {% for sortie in sorties %}
 
-                    <tr{% if sortie.etat is same as(1) %}
+                    <tr{% if sortie.etat.id is same as(6) %}
                         class="bg-danger"
                     {% elseif sortie.dateHeureDebut|date('Y-m-d H:i:s') < "now"|date('Y-m-d H:i:s') %}
                         class="bg-success"
@@ -35,7 +35,7 @@
                         <td>{{ sortie.dateHeureDebut | date('d/m/Y')}}</td>
                         <td>{{ sortie.dateLimiteInscription | date('d/m/Y')}}</td>
                         <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
-                        <td>{{ sortie.etat }}</td>
+                        <td>{{ sortie.etat.libelle }}</td>
                         <td>{% if(sortie.participants.contains(app.user)) %}
                                 oui
                             {% else %}
