@@ -34,8 +34,6 @@ class Sortie
     #[ORM\Column(type: Types::TEXT)]
     private ?string $infosSortie;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $etat = null;
 
     #[ORM\ManyToOne(inversedBy: 'organisateur')]
     #[ORM\JoinColumn(nullable: false)]
@@ -46,6 +44,11 @@ class Sortie
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $deleteMessage = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Etat $Etat = null;
+    
 
     public function __construct()
     {
@@ -128,18 +131,7 @@ class Sortie
 
         return $this;
     }
-
-    public function getEtat(): ?int
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(int $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
+    
 
     public function getOrganisateur(): ?User
     {
@@ -188,4 +180,18 @@ class Sortie
 
         return $this;
     }
+
+    public function getEtat(): ?Etat
+    {
+        return $this->Etat;
+    }
+
+    public function setEtat(?Etat $Etat): self
+    {
+        $this->Etat = $Etat;
+
+        return $this;
+    }
+
+
 }
