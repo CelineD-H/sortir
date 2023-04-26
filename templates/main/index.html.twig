@@ -5,7 +5,11 @@
 {% endblock %}
 
 {% block body %}
+    {{ form_start(sortiesForm) }}
 
+    {{ form_widget(sortiesForm) }}
+    <button type="submit" class="btn">Rechercher</button>
+    {{ form_end(sortiesForm) }}
     <table>
         <thead>
             <tr>
