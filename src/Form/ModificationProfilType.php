@@ -7,6 +7,8 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+use function Sodium\add;
 
 class ModificationProfilType extends AbstractType
 {
@@ -18,7 +20,7 @@ class ModificationProfilType extends AbstractType
             ->add('lastName')
             ->add('email')
             ->add('telephone')
-            //->add('avatar')
+            ->add('imageFile', VichImageType::class);
         ;
     }
 
