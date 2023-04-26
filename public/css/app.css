@@ -199,6 +199,7 @@ thead th {
     align-items: center;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 1rem;
 }
 
 .view-body {
@@ -228,12 +229,13 @@ thead th {
     color: #e495e4;
 }
 
-/*.sortie-details {
+.sortie-details {
     display: block;
     height: 360px;
     background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
     border-radius: 15px;
-}*/
+    margin: -1rem;
+}
 
 .bg-danger {
     background-color: red!important;
