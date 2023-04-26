@@ -4,15 +4,21 @@
 
 {% block body %}
 
-    <div class="view">
-        <img src="{{ asset("img/" ~ user.avatar) }}" alt="avatar de {{ user.pseudo }}">
+    <div class="view-head">
+        <div class="sortie-organisation">
+            <img src="{{ asset("img/" ~ user.avatar) }}" alt="avatar de {{ user.pseudo }}" width="100">
+        </div>
 
-        <div>
-            <h1>{{ user.pseudo }}</h1>
-            <p>Prénom : {{ user.firstName }}</p>
-            <p>Nom : {{ user.lastName }}</p>
-            <p>Téléphone : {{ user.telephone }}</p>
-            <p>Email : {{ user.email }}</p>
+
+        <div class="sortie-infos">
+            <div class="item">
+                <h1>{{ user.pseudo }}</h1>
+                <p>Prénom : {{ user.firstName }}</p>
+                <p>Nom : {{ user.lastName }}</p>
+                <p>Téléphone : {{ user.telephone }}</p>
+                <p>Email : {{ user.email }}</p>
+            </div>
+
         </div>
     </div>
 
