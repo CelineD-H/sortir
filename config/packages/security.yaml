@@ -38,6 +38,8 @@ security:
         - { path: ^/user, roles: ROLE_USER }
         - { path: ^/sortie, roles: ROLE_USER }
         - { path: ^/ville, roles: ROLE_USER }
+        - { path: ^/register, roles: ROLE_ADMIN }
+
 
 when@test:
     security:
