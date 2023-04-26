@@ -40,6 +40,7 @@ nav a {
 body {
     background: linear-gradient(#1c001c, #f900ff6e) fixed;
     color: #eee;
+    font-family: "Ubuntu";
 }
 
 .container {
