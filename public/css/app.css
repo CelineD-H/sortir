@@ -6,6 +6,7 @@ header {
 .header-title {
     padding: 0 80px;
     display: flex;
+    height: 155px;
 }
 
 .header-body {
