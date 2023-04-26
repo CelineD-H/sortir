@@ -21,6 +21,8 @@ header h1 {
 .sticky {
     position: fixed;
     top: 0;
+    width: 1000px;
+    /*margin-top: -20px;*/
 }
 
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
@@ -106,6 +108,7 @@ footer > div {
     border-radius: 50%;
    /* width: 80px;
     height: 120px; */
+    max-height: 120px;
 }
 .avatarBox {
     display: flex;
