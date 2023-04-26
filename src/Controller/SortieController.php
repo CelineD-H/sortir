@@ -17,11 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createSortie(Request $request, EntityManagerInterface $entityManager): Response
+    public function createSortie(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
+        $user = $userRepository->find($this->getUser());
         $sortie = new Sortie();
         $sortie->setEtat(0);
-        $sortie->setOrganisateur($this->getUser());
+        $sortie->setOrganisateur($user);
+        $sortie->addParticipant($user);
 
         $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);

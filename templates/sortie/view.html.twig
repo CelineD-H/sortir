@@ -34,10 +34,10 @@
                         <a href="{{ path('sortie_delete', { 'id': sortie.id }) }}">[ Supprimer ]</a>
                     {% endif %}
                     <h1>{{ sortie.nom }}</h1>
-                    <p>Heure de début : {{ sortie.dateHeureDebut | date('d/m/Y')}}</p>
+                    <p>Date du début : {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</p>
                     <p>Durée : {{ sortie.duree | date('H:i') }}</p>
                     <p>Liste des participants : ({{ sortie.participants|length }}/{{ sortie.nbInscriptionsMax }})
-                        {% if sortie.participants.contains(app.user) and "now"|date('Y-m-d') < sortie.dateHeureDebut|date('Y-m-d') and sortie.etat == 0 %}
+                        {% if sortie.participants.contains(app.user) and "now"|date('Y-m-d') < sortie.dateHeureDebut|date('Y-m-d H:i') and sortie.etat == 0 %}
                             <a href="{{ path('sortie_quit', { 'id': sortie.id }) }}">[ Je me retire ! ]</a>
                         {% else %}
                             {% if sortie.participants|length < sortie.nbInscriptionsMax and "now"|date('Y-m-d') < sortie.dateLimiteInscription|date('Y-m-d') and sortie.etat == 0 %}
