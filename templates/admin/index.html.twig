@@ -3,18 +3,73 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="4">Liste des utilisateurs</th>
+            <th colspan="1"><a href="{{ path('app_register') }}" title="Créer un utilisateur">Nouvel utilisateur</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Pseudo</th>
+            <th>Nom</th>
+            <th>Prenom</th>
+            <th>Etat</th>
+            <th>Actions</th>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        </tr>
+        {% for user in users %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp/www/sortir/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp/www/sortir/templates/admin/create.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+            <tr>
+                <td>{{ user.pseudo }}</td>
+                <td>{{ user.lastName}}</td>
+                <td>{{ user.firstName}}</td>
+                <td>{% if(user.actif) %} Actif
+                    {% else %}
+                        Bloqué
+                    {% endif %} </td>
+
+
+                <td><a href="{{ path('user_view', {'id': user.id}) }}">Modifier/Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+            <td colspan="5">Total utilisateurs : {{ users|length }}</td>
+        </tr>
+        </tfoot>
+    </table>
+
+    <table>
+        <thead>
+        <tr>
+            <th colspan="1">Liste des campus</th>
+            <th colspan="1"><a href="{{ path('campus_create') }}" title="Créer un campus">Nouveau campus</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Campus</th>
+            <th>Actions</th>
+        </tr>
+        {% for campu in campus %}
+
+            <tr>
+                <td>{{ campu.nom }}</td>
+
+                <td><a href="{{ path('campus_create') }}">Modifier/Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="1">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+            <td colspan="1">Total campus : {{ campus|length }}</td>
+        </tr>
+        </tfoot>
+    </table>
+
 {% endblock %}
