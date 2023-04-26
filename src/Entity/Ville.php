@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VilleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +21,15 @@ class Ville
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $codePostal = null;
+
+    #[ORM\OneToMany(mappedBy: 'Ville', targetEntity: Lieu::class)]
+    private Collection $lieux;
+
+    public function __construct()
+    {
+        $this->lieux = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
@@ -48,4 +59,35 @@ class Ville
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Lieu>
+     */
+    public function getLieux(): Collection
+    {
+        return $this->lieux;
+    }
+
+    public function addLieux(Lieu $lieux): self
+    {
+        if (!$this->lieux->contains($lieux)) {
+            $this->lieux->add($lieux);
+            $lieux->setVille($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLieux(Lieu $lieux): self
+    {
+        if ($this->lieux->removeElement($lieux)) {
+            // set the owning side to null (unless already changed)
+            if ($lieux->getVille() === $this) {
+                $lieux->setVille(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

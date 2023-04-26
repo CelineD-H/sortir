@@ -48,6 +48,14 @@ class Sortie
     #[ORM\ManyToOne(inversedBy: 'sorties')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Etat $Etat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Lieu $Lieu = null;
+
+    #[ORM\ManyToOne(inversedBy: 'sorties')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Campus $Campus = null;
     
 
     public function __construct()
@@ -189,6 +197,30 @@ class Sortie
     public function setEtat(?Etat $Etat): self
     {
         $this->Etat = $Etat;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->Lieu;
+    }
+
+    public function setLieu(?Lieu $Lieu): self
+    {
+        $this->Lieu = $Lieu;
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->Campus;
+    }
+
+    public function setCampus(?Campus $Campus): self
+    {
+        $this->Campus = $Campus;
 
         return $this;
     }
