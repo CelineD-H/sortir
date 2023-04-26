@@ -17,9 +17,20 @@ header {
 header h1 {
     font-family: 'Bruno Ace', cursive;
 }
+#navbar {
+    overflow: hidden;
+}
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
 
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .main {
+    padding-top: 60px;
+}
 nav ul {
-    /*background: #AAA;*/
     background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("../img/leopardskin.jpg");
     display: flex;
     list-style: none;
