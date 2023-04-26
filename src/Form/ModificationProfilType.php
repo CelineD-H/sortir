@@ -19,9 +19,7 @@ class ModificationProfilType extends AbstractType
             ->add('firstName')
             ->add('lastName')
             ->add('email')
-            ->add('telephone')
-            ->add('imageFile', VichImageType::class);
-        ;
+            ->add('telephone');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
