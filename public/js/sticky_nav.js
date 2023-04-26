@@ -15,4 +15,3 @@ function myFunction() {
         navbar.classList.remove("sticky");
     }
 }
-cc
