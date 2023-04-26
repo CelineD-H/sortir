@@ -1,16 +1,14 @@
 <nav>
     <ul>
-        <li><a href="{{ path('app_home') }}" title="Page d'accueil">Page d'accueil</a></li>
+        <a href="{{ path('app_home') }}" title="Page d'accueil"><li>Page d'accueil</li></a>
 
         {% if app.user %}
-
-            <li><a href="{{ path('sortie_create') }}" title="Créer une sortie">Créer une sortie</a></li>
-            <li><a href="{{ path('ville_create') }}" title="Ville">Ville</a></li>
-            <li><a href="{{ path('app_profil') }}" title="Profil">Mon profil</a></li>
-            <li><a href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a></li>
+            <a href="{{ path('ville_create') }}" title="Ville"><li>Ville</li></a>
+            <a href="{{ path('user_view', {'id': app.user.id}) }}" title="Profil"><li>Mon profil</li></a>
+            <a href="{{ path('app_logout') }}" title="Déconnexion"><li>Déconnexion</li></a>
         {% else %}
-            <li><a href="{{ path('app_login') }}" title="Connexion">Connexion</a></li>
-            <li><a href="{{ path('app_register') }}" title="Inscription">Inscription</a></li>
+            <a href="{{ path('app_login') }}" title="Connexion"><li>Connexion</li></a>
+            <a href="{{ path('app_register') }}" title="Inscription"><li>Inscription</li></a>
         {% endif %}
     </ul>
 </nav>

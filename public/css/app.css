@@ -60,8 +60,8 @@ main {
 }
 
 .main {
-    margin: 15px;
-    padding: 5px 0;
+    margin: 0;
+    padding: 0;
 }
 
 label {
@@ -139,10 +139,16 @@ table {
 }
 th {
     letter-spacing: 2px;
+    padding: 0.5rem;
+}
+
+th > a {
+    color: lightpink;
 }
 
 td {
     letter-spacing: 1px;
+    padding: 0.3rem;
 }
 
 tbody td {
@@ -188,3 +194,51 @@ thead th {
     justify-content: space-around;
 }
 
+.view-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.view-body {
+    padding: 1rem 2rem;
+}
+
+.sortie-organisation {
+    width: 280px;
+    height: 360px;
+    border-radius: 50% 20% / 10% 40%;
+    text-align: center;
+    background: center / contain no-repeat, linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), 35% url("../img/leopardskin.jpg");
+}
+
+.sortie-infos {
+    width: calc(100% - 410px);
+    min-height: 360px;
+    background: linear-gradient(#3f173f, #864487);
+    border-radius: 5% 40%;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sortie-infos a {
+    color: #e495e4;
+}
+
+.sortie-details {
+    display: block;
+    height: 360px;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    border-radius: 15px;
+}
+
+.bg-danger {
+    background-color: red!important;
+}
+
+.bg-success {
+    background-color: green!important;
+}

@@ -9,7 +9,8 @@
     <table>
         <thead>
             <tr>
-                <th colspan="8">Liste des sorties</th>
+                <th colspan="7">Liste des sorties</th>
+                <th colspan="1"><a href="{{ path('sortie_create') }}" title="Créer une sortie">Nouvelle sortie</a></th>
             </tr>
         </thead>
             <tbody>
@@ -24,7 +25,12 @@
                     <th>Actions</th>
                 </tr>
                 {% for sortie in sorties %}
-                <tr>
+
+                    <tr{% if sortie.etat is same as(1) %}
+                        class="bg-danger"
+                    {% elseif sortie.dateHeureDebut|date('Y-m-d H:i:s') < "now"|date('Y-m-d H:i:s') %}
+                        class="bg-success"
+                    {% endif %}>
                         <td>{{ sortie.nom }}</td>
                         <td>{{ sortie.dateHeureDebut | date('d/m/Y')}}</td>
                         <td>{{ sortie.dateLimiteInscription | date('d/m/Y')}}</td>
@@ -35,8 +41,8 @@
                             {% else %}
                                 non
                             {% endif %}</td>
-                        <td><a href="{{ path('view', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
-                        <td>Afficher</td>
+                        <td><a href="{{ path('user_view', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                        <td><a href="{{ path('sortie_view', {'id': sortie.id}) }}">Afficher</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

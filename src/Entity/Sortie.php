@@ -44,6 +44,9 @@ class Sortie
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'sorties')]
     private Collection $participants;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $deleteMessage = null;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -170,6 +173,18 @@ class Sortie
     public function removeParticipant(User $participant): self
     {
         $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getDeleteMessage(): ?string
+    {
+        return $this->deleteMessage;
+    }
+
+    public function setDeleteMessage(?string $deleteMessage): self
+    {
+        $this->deleteMessage = $deleteMessage;
 
         return $this;
     }

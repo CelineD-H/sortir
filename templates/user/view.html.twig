@@ -15,6 +15,10 @@
             <p>Email : {{ user.email }}</p>
         </div>
     </div>
-    <button>Retour</button>
+
+    {% if app.user == user %}
+        <button onclick="location.href='{{ path('user_edit') }}'">Modifier mon profil</button>
+    {% endif %}
+    <button onclick="history.back()">Retour</button>
 
 {% endblock %}
