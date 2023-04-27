@@ -50,4 +50,35 @@ class UserController extends AbstractController
             "user" => $user
         ]);
     }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(int $id, UserRepository $userRepository): Response
+    {
+        $userASupprimer = $userRepository->find($id);
+        $userQuiSupprimer = $this->getUser();
+
+        if(!$userASupprimer) {
+            throw $this->createNotFoundException();
+        }
+
+        $route = "app_home";
+
+        if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) || $userQuiSupprimer === $userASupprimer) {
+            //TODO: code pour supprimer l'utilisateur
+            $userRepository->remove($userASupprimer, true);
+
+            if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) && $userQuiSupprimer !== $userASupprimer)
+                $route = "admin_dashboard";
+        }
+
+        $this->addFlash('success', "Le compte ".$userASupprimer->getPseudo()." a été supprimé !");
+
+        return $this->redirectToRoute($route, [
+            'user' => $userASupprimer
+        ]);
+
+        /*return $this->render('user/delete.html.twig', [
+            "user" => $user
+        ]);*/
+    }
 }
