@@ -19,9 +19,15 @@ class MainController extends AbstractController
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
-        $sorties = $sortieRepository->findAll();
+
         $sortie = new Sortie();
         $form = $this->createForm(SortieFiltreType::class, $sortie);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            //TODO: appliquer les filtres du formulaire si le formulaire de filtre est rempli
+        } else {
+            $sorties = $sortieRepository->findAll();
+        }
 
         return $this->render('main/index.html.twig', [
             "sorties" => $sorties,

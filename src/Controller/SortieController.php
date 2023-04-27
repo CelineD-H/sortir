@@ -101,7 +101,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(int $id, SortieRepository $repository, EntityManagerInterface $entityManager, UserRepository $userRepository, Request $request): Response
+    public function delete(int $id, SortieRepository $repository, EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository, Request $request): Response
     {
         $user = $userRepository->find($this->getUser());
         $sortie = $repository->find($id);
@@ -112,7 +112,8 @@ class SortieController extends AbstractController
             ]);
         }
 
-        $sortie->setEtat(1);
+        $etat = $etatRepository->find(6);
+        $sortie->setEtat($etat);
 
         $form = $this->createForm(SortieDeleteFormType::class, $sortie);
         $form->handleRequest($request);
