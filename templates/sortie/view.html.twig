@@ -31,7 +31,7 @@
             <div class="sortie-infos">
                 <div class="item">
                     {% if sortie.organisateur is same as(app.user) and sortie.etat.id < 3 %}
-                        <a href="{{ path('sortie_delete', { 'id': sortie.id }) }}">[ Supprimer ]</a>
+                        <a href="{{ path('sortie_delete', { 'id': sortie.id }) }}">[ Annuler ]</a>
                     {% endif %}
                     <h1>{{ sortie.nom }}</h1>
                     <p>Date du début : {{ sortie.dateHeureDebut | date('d/m/Y à H:i')}}</p>
