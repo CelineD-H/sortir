@@ -72,6 +72,7 @@ class SortieRepository extends ServiceEntityRepository
         if($filtres['campus']) {
             $req->andWhere('s.campus = :id')
                 ->setParameter('id', $filtres['campus']);
+            dd($filtres['campus']);
         }
 
         if ($filtres['nom']) {
@@ -98,13 +99,25 @@ class SortieRepository extends ServiceEntityRepository
         }
 
         if ($filtres['passees']) {
-            $req = $this->createQueryBuilder('s')
-                ->join('s.etat', 'etat')
+            $req->join('s.etat', 'etat')
                 ->andWhere('etat.id = 5');
+        } else {
+            $req->join('s.etat', 'etat')
+                ->andWhere('etat.id != 5');
         }
 
         $query = $req->getQuery();
-        //dd($query);
+        return $query->getResult();
+    }
+
+    public function allSorties()
+    {
+        $req = $this->createQueryBuilder('s')
+            ->join('s.etat', 'etat')
+            ->andWhere('etat.id != 5');
+
+        $query = $req->getQuery();
         return $query->getResult();
     }
 }
+
