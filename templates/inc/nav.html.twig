@@ -5,7 +5,6 @@
         {% if app.user %}
             <a href="{{ path('ville_create') }}" title="Ville"><li>Ville</li></a>
             <a href="{{ path('lieu_create') }}" title="Lieux"><li>Lieux</li></a>
-            <a href="{{ path('campus_create') }}" title="Campus"><li>Campus</li></a>
             <a href="{{ path('user_view', {'id': app.user.id}) }}" title="Profil"><li>Mon profil</li></a>
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('admin_dashboard') }}" title="Administration"><li>Administration</li></a>
@@ -13,7 +12,6 @@
             <a href="{{ path('app_logout') }}" title="Déconnexion"><li>Déconnexion</li></a>
         {% else %}
             <a href="{{ path('app_login') }}" title="Connexion"><li>Connexion</li></a>
-            <a href="{{ path('app_register') }}" title="Inscription"><li>Inscription</li></a>
         {% endif %}
     </ul>
 </nav>

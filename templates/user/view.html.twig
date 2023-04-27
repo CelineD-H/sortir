@@ -23,7 +23,7 @@
     </div>
 
     {% if app.user == user %}
-        <button onclick="location.href='{{ path('user_edit') }}'">Modifier mon profil</button>
+        <button onclick="location.href='{{ path('user_edit', {'id': user.id}) }}'">Modifier mon profil</button>
     {% endif %}
     <button onclick="history.back()">Retour</button>
 

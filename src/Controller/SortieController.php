@@ -18,15 +18,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createSortie(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository): Response
+    public function createSortie(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
-        $user = $userRepository->find($this->getUser());
+        $user = $this->getUser();
         $etat = $etatRepository->find(1);
 
         $sortie = new Sortie();
         $sortie->setEtat($etat);
         $sortie->setOrganisateur($user);
         $sortie->addParticipant($user);
+
 
         $form = $this->createForm(SortieFormType::class, $sortie);
         $form->handleRequest($request);
@@ -69,9 +70,9 @@ class SortieController extends AbstractController
 
 
     #[Route('/join/{id}', name: 'join')]
-    public function join(int $id, SortieRepository $repository, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function join(int $id, SortieRepository $repository, EntityManagerInterface $entityManager): Response
     {
-        $user = $userRepository->find($this->getUser());
+        $user = $this->getUser();
         $sortie = $repository->find($id);
 
         $sortie->addParticipant($user);
@@ -85,9 +86,9 @@ class SortieController extends AbstractController
     }
 
     #[Route('/quit/{id}', name: 'quit')]
-    public function quit(int $id, SortieRepository $repository, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function quit(int $id, SortieRepository $repository, EntityManagerInterface $entityManager): Response
     {
-        $user = $userRepository->find($this->getUser());
+        $user = $this->getUser();
         $sortie = $repository->find($id);
 
         $sortie->removeParticipant($user);
@@ -101,9 +102,9 @@ class SortieController extends AbstractController
     }
 
     #[Route('/delete/{id}', name: 'delete')]
-    public function delete(int $id, SortieRepository $repository, EntityManagerInterface $entityManager, UserRepository $userRepository, EtatRepository $etatRepository, Request $request): Response
+    public function delete(int $id, SortieRepository $repository, EntityManagerInterface $entityManager, EtatRepository $etatRepository, Request $request): Response
     {
-        $user = $userRepository->find($this->getUser());
+        $user = $this->getUser();
         $sortie = $repository->find($id);
 
         if($user !== $sortie->getOrganisateur()) {

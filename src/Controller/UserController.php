@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user', name: 'user_')]
 class UserController extends AbstractController
 {
-    #[Route('/edit', name: 'edit')]
-    public function edit(Request $request, EntityManagerInterface $entityManager, UserRepository $ur): Response
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $user = $this->getUser();
-        $id = $ur->findOneBy(['pseudo' => $user->getUserIdentifier()])->getId();
+        $id = $userRepository->findOneBy(['pseudo' => $user->getUserIdentifier()])->getId();
 
         $form = $this->createForm(ModificationProfilType::class, $user);
         $form->handleRequest($request);
@@ -49,5 +49,35 @@ class UserController extends AbstractController
         return $this->render('user/view.html.twig', [
             "user" => $user
         ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(int $id, UserRepository $userRepository): Response
+    {
+        $userASupprimer = $userRepository->find($id);
+        $userQuiSupprimer = $this->getUser();
+
+        if(!$userASupprimer) {
+            throw $this->createNotFoundException();
+        }
+
+        $route = "app_home";
+
+        if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) || $userQuiSupprimer === $userASupprimer) {
+            $userRepository->remove($userASupprimer, true);
+
+            if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) && $userQuiSupprimer !== $userASupprimer)
+                $route = "admin_dashboard";
+        }
+
+        $this->addFlash('success', "Le compte ".$userASupprimer->getPseudo()." a été supprimé !");
+
+        return $this->redirectToRoute($route, [
+            'user' => $userASupprimer
+        ]);
+
+        /*return $this->render('user/delete.html.twig', [
+            "user" => $user
+        ]);*/
     }
 }
