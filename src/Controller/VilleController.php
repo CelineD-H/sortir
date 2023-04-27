@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Ville;
 use App\Form\VilleFormType;
-use App\Repository\LieuRepository;
 use App\Repository\VilleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

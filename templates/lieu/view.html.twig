@@ -11,6 +11,16 @@
 
     {% set urlCarte = "https://www.google.com/maps/place/" %}
 
-    <a href="{{ urlCarte }}{{ lieu.latitude }}+{{ lieu.longitude }}" target="_blank">Localisation</a>
+    <a href="{{ urlCarte }}" target="_blank">Localisation</a>
+
+    <iframe
+            width="600"
+            height="450"
+            style="border:0"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBEwgC7YNEgeuTKuxzqTs4BxeiZXz4Vgc8&q={{ lieu.latitude }}+{{ lieu.longitude }}">
+    </iframe>
 
 {% endblock %}

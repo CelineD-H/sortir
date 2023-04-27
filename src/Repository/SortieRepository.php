@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Sortie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -63,7 +65,7 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-    public function filtreSorties(mixed $filtres, int $userId)
+    public function filtreSorties(mixed $filtres, User $user)
     {
         $req = $this->createQueryBuilder('s');
 
@@ -79,27 +81,30 @@ class SortieRepository extends ServiceEntityRepository
 
         if ($filtres['orga']) {
             $req->andWhere('s.organisateur = :id')
-                ->setParameter('id', $userId);
+                ->setParameter('id', $user->getId());
         }
 
         if ($filtres['isInscrit']) {
             $req->join('s.participants', 'p')
-                ->andWhere('p.id = :id')
-                ->setParameter('id', $userId);
+                ->andWhere('p.id LIKE :id')
+                ->setParameter('id', $user->getId());
         }
 
         if ($filtres['noInscrit']) {
-            $req->join('s.participants', 'np')
-                ->andWhere('np.id != :id')
-                ->setParameter('id', $userId);
+
+            $req->join('s.participants', 'n')
+                ->andWhere(':user NOT MEMBER OF s.participants')
+                ->setParameter('user', $user->getId());
         }
 
         if ($filtres['passees']) {
-            $req->join('s.etat', 'etat')
+            $req = $this->createQueryBuilder('s')
+                ->join('s.etat', 'etat')
                 ->andWhere('etat.id = 5');
         }
 
         $query = $req->getQuery();
+        //dd($query);
         return $query->getResult();
     }
 }

@@ -57,8 +57,9 @@ class MainController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $filtres = $form->getData();
-            $userId = $userRepository->findOneBy(['pseudo' => $this->getUser()->getUserIdentifier()])->getId();
-            $sorties = $sortieRepository->filtreSorties($filtres, $userId);
+            $user = $userRepository->findOneBy(['pseudo' => $this->getUser()->getUserIdentifier()]);
+            $sorties = $sortieRepository->filtreSorties($filtres, $user);
+            //dd($sorties);
             //dd($form->getData());
             //$sortie->setEtat(1);
             //dd($sortie->getCampus()->getId());
