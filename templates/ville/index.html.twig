@@ -21,7 +21,7 @@
             <tr>
                 <td><a href="{{ path('ville_view', {'id': ville.id}) }}">{{ ville.nom }}</a></td>
                 <td>{{ ville.codePostal }}</td>
-                <td><a href="{{ path('ville_view', {'id': ville.id}) }}">Modifier</a> | <a href="{{ path('ville_view', {'id': ville.id}) }}">Supprimer</a></td>
+                <td><a href="{{ path('ville_edit', {'id': ville.id}) }}">Modifier</a> | <a href="{{ path('ville_delete', {'id': ville.id}) }}">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>

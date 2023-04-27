@@ -18,19 +18,25 @@ class VilleController extends AbstractController
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $ville = new Ville();
-
         $form = $this->createForm(VilleFormType::class, $ville);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($ville);
             $entityManager->flush();
+
+            $this->addFlash('success', "La ville " . $ville->getNom() . " a bien été créée.");
+
+            return $this->redirectToRoute('ville_view', [
+                'id' => $ville->getId()
+            ]);
         }
 
         return $this->render('ville/create.html.twig', [
             'villeForm' => $form->createView(),
         ]);
     }
+
     #[Route('/', name: 'list')]
     public function list(Request $request, EntityManagerInterface $entityManager, VilleRepository $villeRepository): Response
     {
@@ -40,18 +46,63 @@ class VilleController extends AbstractController
             "villes" => $villes
         ]);
     }
+
     #[Route('/view/{id}', name: 'view')]
     public function details(int $id, VilleRepository $villeRepository): Response
     {
         $ville = $villeRepository->find($id);
 
 
-        if(!$ville) {
+        if (!$ville) {
             throw $this->createNotFoundException();
         }
 
         return $this->render('ville/view.html.twig', [
             "ville" => $ville,
         ]);
+    }
+
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, VilleRepository $villeRepository): Response
+    {
+        $ville = $villeRepository->find($id);
+        $form = $this->createForm(VilleFormType::class, $ville);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($ville);
+            $entityManager->flush();
+
+            $this->addFlash('success', "La ville " . $ville->getNom() . " a bien été modifiée.");
+
+            return $this->redirectToRoute('ville_view', [
+                'id' => $ville->getId()
+            ]);
+        }
+
+        return $this->render('ville/edit.html.twig', [
+            'villeEditForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/delete/{id}', name: 'delete')]
+    public function delete(int $id, Request $request, EntityManagerInterface $entityManager, VilleRepository $villeRepository): Response
+    {
+        $ville = $villeRepository->find($id);
+        $route = "app_home";
+
+        if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            $villeRepository->remove($ville);
+            $entityManager->flush();
+
+            $this->addFlash('success', "La ville " . $ville->getNom() . " a bien été supprimée.");
+            $route = "admin_dashboard";
+        }
+
+        return $this->redirectToRoute($route);
+
+        /*return $this->render('ville/edit.html.twig', [
+            'villeEditForm' => $form->createView(),
+        ]);*/
     }
 }
