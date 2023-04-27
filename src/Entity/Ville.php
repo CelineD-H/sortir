@@ -20,9 +20,13 @@ class Ville
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(type: Types::INTEGER)]
-    #[Assert\Positive]
-    private ?int $codePostal = null;
+    #[ORM\Column(length: 5)]
+    #[Assert\Regex(
+        pattern: '/^(?:0[1-9]|[1-8]\d|9[0-8])\d{3}$/',
+        message: 'Format code postal non conforme',
+        match: true
+    )]
+    private ?string $codePostal = null;
 
     #[ORM\OneToMany(mappedBy: 'Ville', targetEntity: Lieu::class)]
     private Collection $lieux;
@@ -50,12 +54,12 @@ class Ville
         return $this;
     }
 
-    public function getCodePostal(): ?int
+    public function getCodePostal(): ?string
     {
         return $this->codePostal;
     }
 
-    public function setCodePostal(int $codePostal): self
+    public function setCodePostal(string $codePostal): self
     {
         $this->codePostal = $codePostal;
 
