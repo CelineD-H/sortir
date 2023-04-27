@@ -22,7 +22,7 @@
         {% for user in users %}
 
             <tr>
-                <td>{{ user.pseudo }}</td>
+                <td><a href="{{ path('user_view', {'id': user.id}) }}">{{ user.pseudo }}</a></td>
                 <td>{{ user.lastName}}</td>
                 <td>{{ user.firstName}}</td>
                 <td>{% if(user.actif) %} Actif
@@ -31,7 +31,7 @@
                     {% endif %} </td>
 
 
-                <td><a href="{{ path('user_view', {'id': user.id}) }}">Modifier/Supprimer</a></td>
+                <td><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a> | <a href="{{ path('user_view', {'id': user.id}) }}">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>
@@ -58,9 +58,8 @@
         {% for campu in campus %}
 
             <tr>
-                <td>{{ campu.nom }}</td>
-
-                <td><a href="{{ path('campus_create') }}">Modifier/Supprimer</a></td>
+                <td><a href="{{ path('campus_create') }}">{{ campu.nom }}</a></td>
+                <td><a href="{{ path('campus_create') }}">Modifier</a> | <a href="{{ path('campus_create') }}">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>

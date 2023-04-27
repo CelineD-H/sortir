@@ -13,11 +13,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/user', name: 'user_')]
 class UserController extends AbstractController
 {
-    #[Route('/edit', name: 'edit')]
-    public function edit(Request $request, EntityManagerInterface $entityManager, UserRepository $ur): Response
+    #[Route('/edit/{id}', name: 'edit')]
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $user = $this->getUser();
-        $id = $ur->findOneBy(['pseudo' => $user->getUserIdentifier()])->getId();
+        $id = $userRepository->findOneBy(['pseudo' => $user->getUserIdentifier()])->getId();
 
         $form = $this->createForm(ModificationProfilType::class, $user);
         $form->handleRequest($request);
