@@ -64,7 +64,6 @@ class UserController extends AbstractController
         $route = "app_home";
 
         if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) || $userQuiSupprimer === $userASupprimer) {
-            //TODO: code pour supprimer l'utilisateur
             $userRepository->remove($userASupprimer, true);
 
             if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) && $userQuiSupprimer !== $userASupprimer)
