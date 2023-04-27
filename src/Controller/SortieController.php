@@ -52,6 +52,7 @@ class SortieController extends AbstractController
     public function details(int $id, SortieRepository $repository): Response
     {
         $sortie = $repository->find($id);
+
         $dateDebut = date('Y-m-d H:i:s', date_timestamp_get($sortie->getDateHeureDebut()));
         $dateDuree = date('Y-m-d H:i:s', date_timestamp_get($sortie->getDuree())+3600);
         $expirationString = date('d/m/Y à H:i', strtotime($dateDebut) + strtotime($dateDuree));

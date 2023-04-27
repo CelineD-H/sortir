@@ -63,4 +63,43 @@ class SortieRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function filtreSorties(mixed $filtres, int $userId)
+    {
+        $req = $this->createQueryBuilder('s');
+
+        if($filtres['campus']) {
+            $req->andWhere('s.campus = :id')
+                ->setParameter('id', $filtres['campus']);
+        }
+
+        if ($filtres['nom']) {
+            $req->andWhere('s.nom LIKE :nom')
+                ->setParameter('nom', "%{$filtres['nom']}%");
+        }
+
+        if ($filtres['orga']) {
+            $req->andWhere('s.organisateur = :id')
+                ->setParameter('id', $userId);
+        }
+
+        if ($filtres['isInscrit']) {
+            $req->join('s.participants', 'p')
+                ->andWhere('p.id = :id')
+                ->setParameter('id', $userId);
+        }
+
+        if ($filtres['noInscrit']) {
+            $req->join('s.participants', 'np')
+                ->andWhere('np.id != :id')
+                ->setParameter('id', $userId);
+        }
+
+        if ($filtres['passees']) {
+            $req->join('s.etat', 'etat')
+                ->andWhere('etat.id = 5');
+        }
+
+        $query = $req->getQuery();
+        return $query->getResult();
+    }
 }
