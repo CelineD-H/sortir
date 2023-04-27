@@ -30,7 +30,7 @@
                     <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
                 </div>
                 {% if app.user %}
-                    <a class="avatarBox" href="{{ path('user_view', { 'id': app.user.id }) }}"><img src="{{ asset("img/avatar/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar">{{ app.user.pseudo }}</a>
+                    <a class="avatarBox" href="{{ path('user_view', { 'id': app.user.id }) }}"><img src="{{ asset("uploads/files/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar">{{ app.user.pseudo }}</a>
                 {% endif %}
             </div>
             {% include 'inc/nav.html.twig' %}

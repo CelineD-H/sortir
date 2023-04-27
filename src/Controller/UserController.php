@@ -2,33 +2,45 @@
 
 namespace App\Controller;
 
+use App\Entity\Upload;
 use App\Form\ModificationProfilType;
 use App\Repository\UserRepository;
+use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Route('/user', name: 'user_')]
 class UserController extends AbstractController
 {
     #[Route('/edit/{id}', name: 'edit')]
-    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, FileUploader $fileUploader): Response
     {
-        $user = $this->getUser();
-        $id = $userRepository->findOneBy(['pseudo' => $user->getUserIdentifier()])->getId();
+        $user = $userRepository->findOneBy(['pseudo' => $this->getUser()->getUserIdentifier()]);
 
         $form = $this->createForm(ModificationProfilType::class, $user);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $upload = new Upload();
+            $file = $form->get('file')->getData();
+            if($file){
+                $uploadFilename = $fileUploader->upload($file);
+                $upload->setFileName($uploadFilename);
+                $user->setAvatar($uploadFilename);
+            }
+
             $entityManager->persist($user);
             $entityManager->flush();
 
             $this->addFlash('success', "Profil modifié avec succès !");
             return $this->redirectToRoute('user_view', [
-                'id' => $id
+                'id' => $user->getId()
             ]);
         }
 
