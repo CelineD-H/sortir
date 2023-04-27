@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: VilleRepository::class)]
 class Ville
@@ -20,6 +21,7 @@ class Ville
     private ?string $nom = null;
 
     #[ORM\Column(type: Types::INTEGER)]
+    #[Assert\Positive]
     private ?int $codePostal = null;
 
     #[ORM\OneToMany(mappedBy: 'Ville', targetEntity: Lieu::class)]
