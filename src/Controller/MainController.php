@@ -59,15 +59,10 @@ class MainController extends AbstractController
             $filtres = $form->getData();
             $user = $userRepository->findOneBy(['pseudo' => $this->getUser()->getUserIdentifier()]);
             $sorties = $sortieRepository->filtreSorties($filtres, $user);
-            //dd($sorties);
-            //dd($form->getData());
-            //$sortie->setEtat(1);
-            //dd($sortie->getCampus()->getId());
-            //$sorties = $sortieRepository->findBy(['Campus' => $sortie->getCampus()->getId()]);
-            //$sorties = $sortieRepository->findAll();
         } else {
-            $sorties = $sortieRepository->findAll();
+            $sorties = $sortieRepository->allSorties();
         }
+        dump($sorties);
 
         return $this->render('main/index.html.twig', [
             "sorties" => $sorties,
