@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | {{ ville.nom }}
+{% endblock %}
+
+{% block body %}
+
+    <h2>{{ ville.nom }}</h2>
+
+    {% set urlCarte = "https://www.google.com/maps/place/" %}
+
+    <a href="{{ urlCarte }}{{ ville.codePostal }}" target="_blank">Localisation</a>
+
+{% endblock %}

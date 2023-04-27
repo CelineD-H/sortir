@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | {{ lieu.nom }}
+{% endblock %}
+
+{% block body %}
+
+    <h2>{{ lieu.nom }}</h2>
+    <h3>{{ lieu.ville.nom }}</h3>
+
+    {% set urlCarte = "https://www.google.com/maps/place/" %}
+
+    <a href="{{ urlCarte }}{{ lieu.latitude }}+{{ lieu.longitude }}" target="_blank">Localisation</a>
+
+{% endblock %}
