@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Sortie;
 use App\Form\SortieDeleteFormType;
 use App\Form\SortieFormType;
@@ -9,7 +10,10 @@ use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +21,59 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/sortie', name: 'sortie_')]
 class SortieController extends AbstractController
 {
+    #[Route('/..', name: 'home')]
+    public function home(Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, UserRepository $userRepository): Response
+    {
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        //$sortie = new Sortie();
+
+        $form = $this->createFormBuilder()
+            ->add('campus', EntityType::class, [
+                'class' => Campus::class,
+                'label' => 'Campus',
+                'choice_label' => 'nom',
+                'required' => false
+            ])
+            ->add('nom', TextType::class, [
+                'label' => 'Nom de la sortie',
+                'required' => false
+            ])
+            ->add('orga', CheckboxType::class, [
+                'label' => 'Sorties dont je suis l\'organisateur/trice',
+                'required' => false
+            ])
+            ->add('isInscrit', CheckboxType::class, [
+                'label' => 'Sorties auxquelles je suis inscrit/e',
+                'required' => false
+            ])
+            ->add('noInscrit', CheckboxType::class, [
+                'label' => 'Sorties auxquelles je ne suis pas inscrit/e',
+                'required' => false
+            ])
+            ->add('passees', CheckboxType::class, [
+                'label' => 'Sorties passées',
+                'required' => false
+            ])->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $filtres = $form->getData();
+            $sorties = $sortieRepository->filtreSorties($filtres, $this->getUser());
+        } else {
+            $sorties = $sortieRepository->allSorties();
+        }
+        dump($sorties);
+
+        return $this->render('main/index.html.twig', [
+            "sorties" => $sorties,
+            "sortiesForm" => $form->createView()
+        ]);
+    }
+
     #[Route('/create', name: 'create')]
     public function createSortie(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository, ): Response
     {

@@ -72,7 +72,6 @@ class SortieRepository extends ServiceEntityRepository
         if($filtres['campus']) {
             $req->andWhere('s.campus = :id')
                 ->setParameter('id', $filtres['campus']);
-            dd($filtres['campus']);
         }
 
         if ($filtres['nom']) {
@@ -123,4 +122,3 @@ class SortieRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 }
-
