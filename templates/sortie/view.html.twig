@@ -30,7 +30,7 @@
 
             <div class="sortie-infos">
                 <div class="item">
-                    {% if sortie.organisateur is same as(app.user) and sortie.etat.id < 3 %}
+                    {% if (sortie.organisateur is same as(app.user) and sortie.etat.id < 3) or is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('sortie_delete', { 'id': sortie.id }) }}">[ Annuler ]</a>
                     {% endif %}
                     <h1>{{ sortie.nom }}</h1>

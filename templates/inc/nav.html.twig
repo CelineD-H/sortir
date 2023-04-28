@@ -3,8 +3,6 @@
         <a href="{{ path('app_home') }}" title="Page d'accueil"><li>Page d'accueil</li></a>
 
         {% if app.user %}
-            <a href="{{ path('ville_list') }}" title="Ville"><li>Ville</li></a>
-            <a href="{{ path('lieu_list') }}" title="Lieux"><li>Lieux</li></a>
             <a href="{{ path('user_view', {'id': app.user.id}) }}" title="Profil"><li>Mon profil</li></a>
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('admin_dashboard') }}" title="Administration"><li>Administration</li></a>

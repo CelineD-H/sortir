@@ -3,72 +3,36 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
+    {% include 'inc/navadmin.html.twig' %}
     <table>
         <thead>
-        <tr>
-            <th colspan="4">Liste des utilisateurs</th>
-            <th colspan="1"><a href="{{ path('app_register') }}" title="Créer un utilisateur">Nouvel utilisateur</a></th>
-        </tr>
+            <tr>
+                <th colspan="5">Informations générales</th>
+            </tr>
         </thead>
-        <tbody>
-        <tr>
-            <th>Pseudo</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Etat</th>
-            <th>Actions</th>
 
-        </tr>
-        {% for user in users %}
+        <tbody>
+            <tr>
+                <th>Campus</th>
+                <th>Lieux</th>
+                <th>Sorties</th>
+                <th>Utilisateurs</th>
+                <th>Villes</th>
+            </tr>
 
             <tr>
-                <td><a href="{{ path('user_view', {'id': user.id}) }}">{{ user.pseudo }}</a></td>
-                <td>{{ user.lastName}}</td>
-                <td>{{ user.firstName}}</td>
-                <td>{% if(user.actif) %} Actif
-                    {% else %}
-                        Bloqué
-                    {% endif %} </td>
-
-
-                <td><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a> | <a href="{{ path('user_view', {'id': user.id}) }}">Supprimer</a></td>
+                <td>{{ campus|length }}</td>
+                <td>{{ lieux|length }}</td>
+                <td>{{ sorties|length }}</td>
+                <td>{{ users|length }}</td>
+                <td>{{ villes|length }}</td>
             </tr>
-        {% endfor %}
         </tbody>
+
         <tfoot>
-        <tr>
-            <td colspan="3">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
-            <td colspan="5">Total utilisateurs : {{ users|length }}</td>
-        </tr>
-        </tfoot>
-    </table>
-
-    <table>
-        <thead>
-        <tr>
-            <th colspan="1">Liste des campus</th>
-            <th colspan="1"><a href="{{ path('campus_create') }}" title="Créer un campus">Nouveau campus</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>Campus</th>
-            <th>Actions</th>
-        </tr>
-        {% for campu in campus %}
-
             <tr>
-                <td><a href="{{ path('campus_create') }}">{{ campu.nom }}</a></td>
-                <td><a href="{{ path('campus_create') }}">Modifier</a> | <a href="{{ path('campus_create') }}">Supprimer</a></td>
+                <td colspan="5">Nous sommes le {{ "now" | date ("d/m/Y à H:i:s") }}</td>
             </tr>
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="1">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
-            <td colspan="1">Total campus : {{ campus|length }}</td>
-        </tr>
         </tfoot>
     </table>
-
 {% endblock %}

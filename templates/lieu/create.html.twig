@@ -7,4 +7,8 @@
     {{ form_widget(lieuForm) }}
     <button type="submit">Envoyer</button>
     {{ form_end(lieuForm) }}
+
+    {% if "/sortie/create" in referer %}
+        <button onclick="history.back()">Retour</button>
+    {% endif %}
 {% endblock %}

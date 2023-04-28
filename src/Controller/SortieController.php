@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/create', name: 'create')]
-    public function createSortie(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
+    public function createSortie(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository, ): Response
     {
         $user = $this->getUser();
         $etat = $etatRepository->find(1);
@@ -45,6 +45,7 @@ class SortieController extends AbstractController
 
         return $this->render('sortie/create.html.twig', [
             'sortieForm' => $form->createView(),
+            'referer' => $request->headers->get('referer')
         ]);
     }
 
@@ -108,7 +109,7 @@ class SortieController extends AbstractController
         $user = $this->getUser();
         $sortie = $repository->find($id);
 
-        if($user !== $sortie->getOrganisateur()) {
+        if($user !== $sortie->getOrganisateur() && !in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
             return $this->redirectToRoute('sortie_view', [
                 'id' => $id
             ]);

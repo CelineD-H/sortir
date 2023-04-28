@@ -22,8 +22,8 @@
         </div>
     </div>
 
-    {% if app.user == user %}
-        <button onclick="location.href='{{ path('user_edit', {'id': user.id}) }}'">Modifier mon profil</button>
+    {% if app.user == user or is_granted('ROLE_ADMIN') %}
+        <button onclick="location.href='{{ path('user_edit', {'id': user.id}) }}'">Modifier</button>
     {% endif %}
     <button onclick="history.back()">Retour</button>
 

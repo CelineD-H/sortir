@@ -4,7 +4,20 @@
 
 {% block body %}
     {{ form_start(sortieForm) }}
-    {{ form_widget(sortieForm) }}
+    {{ form_row(sortieForm.nom) }}
+    {{ form_row(sortieForm.dateHeureDebut) }}
+    {{ form_row(sortieForm.duree) }}
+    {{ form_row(sortieForm.dateLimiteInscription) }}
+    {{ form_row(sortieForm.nbInscriptionsMax) }}
+    <div style="margin-bottom: 10px">
+        {{ form_row(sortieForm.campus) }}
+        <a href="{{ path('campus_create') }}">[ Nouveau campus ]</a>
+    </div>
+    <div style="margin-bottom: 10px">
+        {{ form_row(sortieForm.lieu) }}
+        <a href="{{ path('lieu_create') }}">[ Nouveau lieu ]</a>
+    </div>
+    {{ form_row(sortieForm.infosSortie) }}
     <button type="submit" class="btn">Valider</button>
     {{ form_end(sortieForm) }}
 {% endblock %}

@@ -6,10 +6,29 @@
 
 {% block body %}
     {{ form_start(sortiesForm) }}
+    <div class="flex">
+        <div class="flex">
+            {{ form_row(sortiesForm.campus) }}
+            {{ form_row(sortiesForm.nom) }}
+        </div>
 
-    {{ form_widget(sortiesForm) }}
-    <button type="submit" class="btn">Rechercher</button>
-    {{ form_end(sortiesForm) }}
+        <div>
+            <button type="submit" class="btn">Rechercher</button>
+        </div>
+
+
+
+
+    </div>
+    <div class="flex">
+        {{ form_row(sortiesForm.orga) }}
+        {{ form_row(sortiesForm.isInscrit) }}
+        {{ form_row(sortiesForm.noInscrit) }}
+        {{ form_row(sortiesForm.passees) }}
+    </div>
+        {{ form_end(sortiesForm) }}
+
+
     <table>
         <thead>
             <tr>

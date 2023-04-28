@@ -3,11 +3,17 @@
 {% block title %}{{ parent() }} | Profil{% endblock %}
 
 {% block body %}
-    <h1>Coucou {{ app.user.firstName }}</h1>
+    <div class="flex">
 
-    {{ form_start(ModificationProfilForm) }}
-    {{ form_widget(ModificationProfilForm) }}
-    <button type="submit" class="btn">Modifier</button>
-    {{ form_end(ModificationProfilForm) }}
+
+        {{ form_start(ModificationProfilForm) }}
+        <h1>Coucou {{ app.user.firstName }}</h1>
+        {{ form_widget(ModificationProfilForm) }}
+        <button type="submit" class="btn">Modifier</button>
+        {{ form_end(ModificationProfilForm) }}
+
+        <img src="{{ asset('uploads/files/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.pseudo }}">
+    </div>
+
 
 {% endblock %}

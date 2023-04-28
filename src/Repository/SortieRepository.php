@@ -106,6 +106,8 @@ class SortieRepository extends ServiceEntityRepository
                 ->andWhere('etat.id != 5');
         }
 
+        $req->andWhere('DATE_DIFF(CURRENT_DATE(), s.dateHeureDebut) < 30');
+
         $query = $req->getQuery();
         return $query->getResult();
     }
@@ -114,7 +116,8 @@ class SortieRepository extends ServiceEntityRepository
     {
         $req = $this->createQueryBuilder('s')
             ->join('s.etat', 'etat')
-            ->andWhere('etat.id != 5');
+            ->andWhere('etat.id != 5')
+            ->andWhere('DATE_DIFF(CURRENT_DATE(), s.dateHeureDebut) < 30');
 
         $query = $req->getQuery();
         return $query->getResult();

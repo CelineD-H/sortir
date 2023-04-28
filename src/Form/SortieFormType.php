@@ -33,7 +33,9 @@ class SortieFormType extends AbstractType
             ->add('infosSortie')
             ->add('lieu', EntityType::class, [
                 'class' => 'App\Entity\Lieu',
-                'choice_label' => 'nom'
+                'choice_label' => function($campus) {
+                    return $campus->__toString();
+                }
             ])
             ->add('campus', EntityType::class, [
                 'class' => 'App\Entity\Campus',

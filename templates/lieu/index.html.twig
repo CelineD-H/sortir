@@ -3,6 +3,7 @@
 {% block title %}Administration{% endblock %}
 
 {% block body %}
+    {% include 'inc/navadmin.html.twig' %}
     <table>
         <thead>
         <tr>
@@ -20,8 +21,8 @@
 
             <tr>
                 <td><a href="{{ path('lieu_view', {'id': lieu.id}) }}">{{ lieu.nom }}</a></td>
-                <td><a href="{{ path('ville_create') }}">{{ lieu.ville.nom }}</a></td>
-                <td><a href="{{ path('lieu_view', {'id': lieu.id}) }}">Modifier</a> | <a href="{{ path('lieu_view', {'id': lieu.id}) }}">Supprimer</a></td>
+                <td><a href="{{ path('ville_view', {'id': lieu.ville.id}) }}">{{ lieu.ville.nom }}</a></td>
+                <td><a href="{{ path('lieu_edit', {'id': lieu.id}) }}">Modifier</a> | <a href="{{ path('lieu_delete', {'id': lieu.id}) }}">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>

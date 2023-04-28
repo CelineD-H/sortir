@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Upload;
 use App\Form\ModificationProfilType;
+use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,12 @@ class UserController extends AbstractController
     #[Route('/edit/{id}', name: 'edit')]
     public function edit(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, FileUploader $fileUploader): Response
     {
-        $user = $userRepository->findOneBy(['pseudo' => $this->getUser()->getUserIdentifier()]);
+        if(in_array('ROLE_ADMIN', $this->getUser()->getRoles())) { // si admin on cherche l'id
+            $user = $userRepository->find($id);
+        } else { // sinon on se modifie soit-même
+            $user = $userRepository->findOneBy(['pseudo' => $this->getUser()->getUserIdentifier()]);
+        }
+
 
         $form = $this->createForm(ModificationProfilType::class, $user);
         $form->handleRequest($request);
@@ -79,7 +85,7 @@ class UserController extends AbstractController
             $userRepository->remove($userASupprimer, true);
 
             if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) && $userQuiSupprimer !== $userASupprimer)
-                $route = "admin_dashboard";
+                $route = "user_list";
         }
 
         $this->addFlash('success', "Le compte ".$userASupprimer->getPseudo()." a été supprimé !");
@@ -91,5 +97,15 @@ class UserController extends AbstractController
         /*return $this->render('user/delete.html.twig', [
             "user" => $user
         ]);*/
+    }
+
+    #[Route('/list', name: 'list')]
+    public function list(Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
+    {
+        $users = $userRepository->findAll();
+
+        return $this->render('user/list.html.twig', [
+            "users" => $users,
+        ]);
     }
 }

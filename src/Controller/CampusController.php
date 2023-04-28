@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Campus;
 use App\Form\CampusFormType;
+use App\Repository\CampusRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +29,16 @@ class CampusController extends AbstractController
         }
         return $this->render('campus/create.html.twig', [
             'campusForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/list', name: 'list')]
+    public function list(Request $request, EntityManagerInterface $entityManager, CampusRepository $campusRepository): Response
+    {
+        $campus = $campusRepository->findAll();
+
+        return $this->render('campus/list.html.twig', [
+            "campus" => $campus,
         ]);
     }
 }

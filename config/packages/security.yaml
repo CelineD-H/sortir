@@ -36,6 +36,9 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/register, roles: ROLE_ADMIN }
         - { path: ^/campus, roles: ROLE_ADMIN }
+        - { path: ^/lieu/list, roles: ROLE_ADMIN }
+        - { path: ^/user/list, roles: ROLE_ADMIN }
+        - { path: ^/ville/list, roles: ROLE_ADMIN }
         - { path: ^/profil, roles: ROLE_USER }
         - { path: ^/user, roles: ROLE_USER }
         - { path: ^/sortie, roles: ROLE_USER }

@@ -34,10 +34,11 @@ class VilleController extends AbstractController
 
         return $this->render('ville/create.html.twig', [
             'villeForm' => $form->createView(),
+            'referer' => $request->headers->get('referer')
         ]);
     }
 
-    #[Route('/', name: 'list')]
+    #[Route('/list', name: 'list')]
     public function list(Request $request, EntityManagerInterface $entityManager, VilleRepository $villeRepository): Response
     {
         $villes = $villeRepository->findAll();
@@ -65,6 +66,10 @@ class VilleController extends AbstractController
     #[Route('/edit/{id}', name: 'edit')]
     public function edit(int $id, Request $request, EntityManagerInterface $entityManager, VilleRepository $villeRepository): Response
     {
+        if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
+            $this->redirectToRoute('app_home');
+        }
+
         $ville = $villeRepository->find($id);
         $form = $this->createForm(VilleFormType::class, $ville);
         $form->handleRequest($request);
@@ -82,6 +87,7 @@ class VilleController extends AbstractController
 
         return $this->render('ville/edit.html.twig', [
             'villeEditForm' => $form->createView(),
+            'ville' => $ville
         ]);
     }
 

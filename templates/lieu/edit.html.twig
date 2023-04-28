@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | {{ lieu.nom }}
+{% endblock %}
+
+{% block body %}
+    {{ form_start(lieuEditForm) }}
+    {{ form_widget(lieuEditForm) }}
+    <button>Envoyer</button>
+    {{ form_end(lieuEditForm) }}
+{% endblock %}

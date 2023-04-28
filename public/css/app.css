@@ -28,12 +28,20 @@ header h1 {
 .sticky + .main {
     padding-top: 60px;
 }
-nav ul {
+#navbar ul {
     background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("../img/leopardskin.jpg");
     display: flex;
     list-style: none;
     border-radius: 0 0 10px 10px;
     margin-top: 0;
+}
+
+#navbar-admin ul {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("../img/leopardskin.jpg");
+    display: flex;
+    list-style: none;
+    border-radius: 10px 10px 0 0;
+    margin: -1rem -1rem 0 -1rem;
 }
 
 nav li:hover {
@@ -84,7 +92,7 @@ input, textarea, select, label {
     margin-bottom: 1rem;
     box-sizing: border-box;
     width: 250px;
-    max-width: 50%;
+    max-width: 80%;
     border-radius: 5px;
 }
 
@@ -264,3 +272,18 @@ thead th {
     background-color: green!important;
 }
 
+.flex {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+a {
+    color: #ff8afb;
+}
+
+td a {
+    color: #864487;
+}

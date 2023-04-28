@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Liste des utilisateurs
+{% endblock %}
+
+{% block body %}
+{% include 'inc/navadmin.html.twig' %}
+    <table>
+        <thead>
+        <tr>
+            <th colspan="1">Liste des campus</th>
+            <th colspan="1"><a href="{{ path('campus_create') }}" title="Créer un campus">Nouveau campus</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Campus</th>
+            <th>Actions</th>
+        </tr>
+        {% for campu in campus %}
+
+            <tr>
+                <td><a href="{{ path('campus_create') }}">{{ campu.nom }}</a></td>
+                <td><a href="{{ path('campus_create') }}">Modifier</a> | <a href="{{ path('campus_create') }}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="1">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+            <td colspan="1">Total campus : {{ campus|length }}</td>
+        </tr>
+        </tfoot>
+    </table>
+{% endblock %}

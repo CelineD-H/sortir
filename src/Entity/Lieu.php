@@ -135,4 +135,8 @@ class Lieu
         return $this;
     }
 
+    public function __toString()
+    {
+        return sprintf('%s (%s - %s)', $this->getNom(), $this->getVille()->getNom(), $this->getVille()->getCodePostal());
+    }
 }
