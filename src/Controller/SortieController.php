@@ -8,7 +8,6 @@ use App\Form\SortieDeleteFormType;
 use App\Form\SortieFormType;
 use App\Repository\EtatRepository;
 use App\Repository\SortieRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/..', name: 'home')]
-    public function home(Request $request, EntityManagerInterface $entityManager, SortieRepository $sortieRepository, UserRepository $userRepository): Response
+    public function home(Request $request, SortieRepository $sortieRepository): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -75,7 +74,7 @@ class SortieController extends AbstractController
     }
 
     #[Route('/create', name: 'create')]
-    public function createSortie(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository, ): Response
+    public function createSortie(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         $user = $this->getUser();
         $etat = $etatRepository->find(1);
@@ -115,10 +114,6 @@ class SortieController extends AbstractController
         $dateDuree = date('Y-m-d H:i:s', date_timestamp_get($sortie->getDuree())+3600);
         $expirationString = date('d/m/Y à H:i', strtotime($dateDebut) + strtotime($dateDuree));
         $expiration = date('Y-m-d H:i:s', strtotime($dateDebut) + strtotime($dateDuree));
-
-        if(!$sortie) {
-            throw $this->createNotFoundException();
-        }
 
         return $this->render('sortie/view.html.twig', [
             "sortie" => $sortie,
