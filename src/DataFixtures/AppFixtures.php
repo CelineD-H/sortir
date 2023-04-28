@@ -10,9 +10,17 @@ use App\Entity\User;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class AppFixtures extends Fixture
+class AppFixtures  extends Fixture
 {
+    private $userPasswordHasher;
+
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $etat1 = new Etat();
@@ -126,7 +134,7 @@ class AppFixtures extends Fixture
         $user1 = new User();
         $user1->setEmail('celinette@cel.com');
         $user1->setRoles(['ROLE_ADMIN']);
-        $user1->setPassword('123456');
+        $user1->setPassword($this->userPasswordHasher->hashPassword($user1, 'celine'));
         $user1->setFirstName('Céline');
         $user1->setLastName('Dudu');
         $user1->setActif(1);
@@ -139,7 +147,7 @@ class AppFixtures extends Fixture
         $user2 = new User();
         $user2->setEmail('extracode@alan.com');
         $user2->setRoles(['ROLE_USER']);
-        $user2->setPassword('234567');
+        $user2->setPassword($this->userPasswordHasher->hashPassword($user2, 'celine'));
         $user2->setFirstName('Alan2');
         $user2->setLastName('Piron-LaFleur');
         $user2->setActif(1);
@@ -152,7 +160,7 @@ class AppFixtures extends Fixture
         $user3 = new User();
         $user3->setEmail('iron@man.fr');
         $user3->setRoles(['ROLE_ADMIN']);
-        $user3->setPassword('345678');
+        $user3->setPassword($this->userPasswordHasher->hashPassword($user3, 'mina123'));
         $user3->setFirstName('tony');
         $user3->setLastName('stark');
         $user3->setActif(1);
@@ -165,7 +173,7 @@ class AppFixtures extends Fixture
         $user4 = new User();
         $user4->setEmail('test@test.fr');
         $user4->setRoles(['ROLE_USER']);
-        $user4->setPassword('456789');
+        $user4->setPassword($this->userPasswordHasher->hashPassword($user4, 'test123'));
         $user4->setFirstName('test');
         $user4->setLastName('test');
         $user4->setActif(1);
@@ -178,7 +186,7 @@ class AppFixtures extends Fixture
         $user5 = new User();
         $user5->setEmail('seb@superdev.fr');
         $user5->setRoles(['ROLE_ADMIN']);
-        $user5->setPassword('567891');
+        $user5->setPassword($this->userPasswordHasher->hashPassword($user5, 'seb123'));
         $user5->setFirstName('seb');
         $user5->setLastName('ro');
         $user5->setActif(1);
@@ -191,7 +199,7 @@ class AppFixtures extends Fixture
         $user6 = new User();
         $user6->setEmail('arthur@test.fr');
         $user6->setRoles(['ROLE_USER']);
-        $user6->setPassword('123456');
+        $user6->setPassword($this->userPasswordHasher->hashPassword($user6, 'arthur'));
         $user6->setFirstName('Arthur');
         $user6->setLastName('Minimoys');
         $user6->setActif(1);
