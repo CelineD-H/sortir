@@ -34,7 +34,14 @@
                     {% endif %} </td>
 
 
-                <td><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a> | <a href="{{ path('user_delete', {'id': user.id}) }}">Supprimer</a></td>
+                <td><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a> |
+                    {% if user.actif %}
+                    <a href="{{ path('user_disable', {'id': user.id}) }}">Désactiver</a> |
+                    {% else %}
+                        <a href="{{ path('user_enable', {'id': user.id}) }}">Activer</a> |
+                    {% endif %}
+                    <a href="{{ path('user_delete', {'id': user.id}) }}">Supprimer</a>
+                </td>
             </tr>
         {% endfor %}
         </tbody>

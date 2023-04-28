@@ -8,6 +8,7 @@ use App\Repository\CampusRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -90,13 +91,55 @@ class UserController extends AbstractController
 
         $this->addFlash('success', "Le compte ".$userASupprimer->getPseudo()." a été supprimé !");
 
-        return $this->redirectToRoute($route, [
-            'user' => $userASupprimer
-        ]);
+        return $this->redirectToRoute($route);
 
         /*return $this->render('user/delete.html.twig', [
             "user" => $user
         ]);*/
+    }
+
+    #[Route('/disable/{id}', name: 'disable')]
+    public function disable(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+        $userADesactiver = $userRepository->find($id);
+        $userQuiDesactive = $this->getUser();
+
+        if(!$userADesactiver) {
+            throw $this->createNotFoundException();
+        }
+
+        if (in_array('ROLE_ADMIN', $userQuiDesactive->getRoles())) {
+            $userADesactiver->setActif(false);
+            $entityManager->persist($userADesactiver);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Le compte ".$userADesactiver->getPseudo()." a été désactivé !");
+            return $this->redirectToRoute("user_list");
+        } else {
+            throw $this->createAccessDeniedException();
+        }
+    }
+
+    #[Route('/enable/{id}', name: 'enable')]
+    public function enable(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    {
+        $userAActiver = $userRepository->find($id);
+        $userQuiActive = $this->getUser();
+
+        if(!$userAActiver) {
+            throw $this->createNotFoundException();
+        }
+
+        if (in_array('ROLE_ADMIN', $userQuiActive->getRoles())) {
+            $userAActiver->setActif(true);
+            $entityManager->persist($userAActiver);
+            $entityManager->flush();
+
+            $this->addFlash('success', "Le compte ".$userAActiver->getPseudo()." a été activé !");
+            return $this->redirectToRoute("user_list");
+        } else {
+            throw $this->createAccessDeniedException();
+        }
     }
 
     #[Route('/list', name: 'list')]
