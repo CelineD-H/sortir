@@ -167,13 +167,14 @@ class SortieController extends AbstractController
             ]);
         }
 
-        $etat = $etatRepository->find(6);
-        $sortie->setEtat($etat);
+
 
         $form = $this->createForm(SortieDeleteFormType::class, $sortie);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $etat = $etatRepository->find(6);
+            $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();
 
