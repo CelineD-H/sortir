@@ -13,26 +13,22 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+
 class AppFixtures  extends Fixture
 {
     private $userPasswordHasher;
     private $entityManager;
 
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
+
+    public function __construct( UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
     {
         $this->userPasswordHasher = $userPasswordHasher;
         $this->entityManager = $entityManager;
+
     }
 
     public function load(ObjectManager $manager): void
     {
-        $connection = $this->entityManager->getConnection();
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS=0');
-        $connection = $this->entityManager->getConnection();
-
-        $platform = $connection->getDatabasePlatform();
-        $connection->executeStatement($platform->getTruncateTableSQL('etat', true));
-        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS=1');
 
         $etat1 = new Etat();
         $etat1->setLibelle('Créée');
@@ -222,6 +218,11 @@ class AppFixtures  extends Fixture
 
         $sortie1 = new Sortie();
         $sortie1->setOrganisateur($user6);
+        $sortie1->addParticipant($user2);
+        $sortie1->addParticipant($user1);
+        $sortie1->addParticipant($user6);
+        $sortie1->addParticipant($user4);
+        $sortie1->addParticipant($user3);
         $sortie1->setNom('Manif du 1er Mai');
         $sortie1->setDateHeureDebut(new \DateTime('2022-05-01 09:00:00'));
         $sortie1->setDuree(new \DateTime('08:00:00'));
@@ -235,6 +236,10 @@ class AppFixtures  extends Fixture
         $manager->persist($sortie1);
 
         $sortie2 = new Sortie();
+        $sortie2->addParticipant($user2);
+        $sortie2->addParticipant($user1);
+        $sortie2->addParticipant($user6);
+        $sortie2->addParticipant($user4);
         $sortie2->setOrganisateur($user5);
         $sortie2->setNom('test');
         $sortie2->setDateHeureDebut(new \DateTime('2222-12-12 10:10:00'));
@@ -249,6 +254,8 @@ class AppFixtures  extends Fixture
         $manager->persist($sortie2);
 
         $sortie3 = new Sortie();
+        $sortie3->addParticipant($user2);
+        $sortie3->addParticipant($user1);
         $sortie3->setOrganisateur($user2);
         $sortie3->setNom('Balade en forêt');
         $sortie3->setDateHeureDebut(new \DateTime('2023-04-30 14:00:00'));
@@ -261,9 +268,16 @@ class AppFixtures  extends Fixture
         $sortie3->setLieu($lieu1);
         $sortie3->setCampus($campus1);
         $manager->persist($sortie3);
+       // dd($sortie3);
 
         $sortie4 = new Sortie();
         $sortie4->setOrganisateur($user2);
+        $sortie4->addParticipant($user4);
+        $sortie4->addParticipant($user1);
+        $sortie4->addParticipant($user2);
+        $sortie4->addParticipant($user3);
+        $sortie4->addParticipant($user5);
+        $sortie4->addParticipant($user6);
         $sortie4->setNom('Pêche aux moules');
         $sortie4->setDateHeureDebut(new \DateTime('2023-04-25 07:30:00'));
         $sortie4->setDuree(new \DateTime('06:00:00'));
@@ -278,13 +292,16 @@ class AppFixtures  extends Fixture
 
         $sortie5 = new Sortie();
         $sortie5->setOrganisateur($user4);
-        $sortie5->setNom('Pêche aux moules');
+        $sortie5->addParticipant($user5);
+        $sortie5->addParticipant($user1);
+        $sortie5->addParticipant($user2);
+        $sortie5->setNom('Rencontre un dev');
         $sortie5->setDateHeureDebut(new \DateTime('2023-04-29 15:00:00'));
         $sortie5->setDuree(new \DateTime('00:30:00'));
         $sortie5->setDateLimiteInscription(new \DateTime('2023-04-28'));
         $sortie5->setNbInscriptionsMax(3);
         $sortie5->setInfosSortie('Rencontre un super dev');
-        $sortie5->setDeleteMessage( '');
+        $sortie5->setDeleteMessage( 'Bisous');
         $sortie5->setEtat($etat1);
         $sortie5->setLieu($lieu1);
         $sortie5->setCampus($campus1);
@@ -292,6 +309,12 @@ class AppFixtures  extends Fixture
 
         $sortie6 = new Sortie();
         $sortie6->setOrganisateur($user2);
+        $sortie6->addParticipant($user4);
+        $sortie6->addParticipant($user1);
+        $sortie6->addParticipant($user2);
+        $sortie6->addParticipant($user3);
+        $sortie6->addParticipant($user5);
+        $sortie6->addParticipant($user6);
         $sortie6->setNom('Le mont Ventoux à vélo');
         $sortie6->setDateHeureDebut(new \DateTime('2023-05-11 06:00:00'));
         $sortie6->setDuree(new \DateTime('12:00:00'));
