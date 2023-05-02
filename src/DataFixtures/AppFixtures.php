@@ -120,7 +120,7 @@ class AppFixtures  extends Fixture
 
         $lieu4 = new Lieu();
         $lieu4->setNom('Tour de la Citadelle');
-        $lieu4->setRue("Avenue de l\'université");
+        $lieu4->setRue("Avenue de l'université");
         $lieu4->setLatitude('51.098707');
         $lieu4->setLongitude('2.373288');
         $lieu4->setVille($ville8);
@@ -135,7 +135,7 @@ class AppFixtures  extends Fixture
         $manager->persist($campus2);
 
         $campus3 = new Campus();
-        $campus3->setNom("L\'école des Fans");
+        $campus3->setNom("L'école des Fans");
         $manager->persist($campus3);
         
         $user1 = new User();
@@ -320,8 +320,8 @@ class AppFixtures  extends Fixture
         $sortie6->setDuree(new \DateTime('12:00:00'));
         $sortie6->setDateLimiteInscription(new \DateTime('2023-04-22'));
         $sortie6->setNbInscriptionsMax(10);
-        $sortie6->setInfosSortie('2023-04-22');
-        $sortie6->setDeleteMessage( "C'\était une blague !! Je fais pas de vélo moi !!");
+        $sortie6->setInfosSortie("C'est une blague");
+        $sortie6->setDeleteMessage( "C'était une blague !! Je fais pas de vélo moi !!");
         $sortie6->setEtat($etat6);
         $sortie6->setLieu($lieu2);
         $sortie6->setCampus($campus1);
