@@ -12,11 +12,11 @@
         </div>
     {% elseif "now"|date('Y-m-d H:i:s') > sortie.dateHeureDebut|date('Y-m-d H:i:s') and "now"|date('Y-m-d H:i:s') < dateExpiration|date('Y-m-d H:i:s') %}
         <div class="flash flash-success">
-            La sortie a déjà commencée et prendra fin le {{ dateExpirationString }} !
+            La sortie a déjà commencée et prendra fin le {{ dateExpiration|format_datetime('full', 'none', locale='fr')|capitalize() }} !
         </div>
     {% elseif "now"|date('Y-m-d H:i:s') > dateExpiration|date('Y-m-d H:i:s')  %}
         <div class="flash flash-success">
-            La sortie est terminée depuis le {{ dateExpirationString}} !
+            La sortie est terminée depuis le {{ dateExpiration|format_datetime('full', 'none', locale='fr')|capitalize()}} !
         </div>
     {% endif %}
 

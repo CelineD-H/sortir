@@ -27,8 +27,6 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        //$sortie = new Sortie();
-
         $form = $this->createFormBuilder()
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,
@@ -110,15 +108,12 @@ class SortieController extends AbstractController
     {
         $sortie = $repository->find($id);
 
-        $dateDebut = date('Y-m-d H:i:s', date_timestamp_get($sortie->getDateHeureDebut()));
-        $dateDuree = date('Y-m-d H:i:s', date_timestamp_get($sortie->getDuree())+3600);
-        $expirationString = date('d/m/Y à H:i', strtotime($dateDebut) + strtotime($dateDuree));
-        $expiration = date('Y-m-d H:i:s', strtotime($dateDebut) + strtotime($dateDuree));
+        $expiration = date('Y-m-d H:i:s',date_timestamp_get($sortie->getDateHeureDebut()) + date_timestamp_get($sortie->getDuree())+3600);
+
 
         return $this->render('sortie/view.html.twig', [
             "sortie" => $sortie,
-            "dateExpiration" => $expiration,
-            "dateExpirationString" => $expirationString
+            "dateExpiration" => $expiration
         ]);
     }
 
