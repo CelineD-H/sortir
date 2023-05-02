@@ -99,7 +99,9 @@ input, textarea, select, label {
 #remember {
     width: auto;
 }
-
+.checkbox {
+    width: auto;
+}
 footer > div {
     padding: 15px;
     margin: auto;
