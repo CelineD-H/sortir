@@ -12,7 +12,7 @@
         <button type="submit" class="btn">Modifier</button>
         {{ form_end(ModificationProfilForm) }}
 
-        <img src="{{ asset('uploads/files/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.pseudo }}">
+        <img class="avatar" src="{{ asset('uploads/files/' ~ app.user.avatar) }}" alt="Avatar de {{ app.user.pseudo }}">
     </div>
 
 

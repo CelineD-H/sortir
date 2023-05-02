@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -21,7 +22,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class UserController extends AbstractController
 {
     #[Route('/edit/{id}', name: 'edit')]
-    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, FileUploader $fileUploader): Response
+    public function edit(int $id, Request $request, EntityManagerInterface $entityManager, UserRepository $userRepository, FileUploader $fileUploader, UserPasswordHasherInterface $userPasswordHasher): Response
     {
         if(in_array('ROLE_ADMIN', $this->getUser()->getRoles())) { // si admin on cherche l'id
             $user = $userRepository->find($id);
@@ -34,6 +35,16 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            $newMdp = $form->get('password')->getData();
+
+            if ($newMdp) {
+                $confMdP = $form->get('confirmationPassword')->getData();
+                if ($newMdp == $confMdP) {
+                    $user->setPassword($userPasswordHasher->hashPassword($user, $newMdp));
+                } else {
+                    $this->addFlash('error', 'les deux mots de passe sont différents');
+                }
+            }
             $upload = new Upload();
             $file = $form->get('file')->getData();
             if($file){
