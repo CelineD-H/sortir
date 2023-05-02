@@ -35,15 +35,10 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $newMdp = $form->get('password')->getData();
+            $newMdp = $form->get('newPassword')->getData();
 
             if ($newMdp) {
-                $confMdP = $form->get('confirmationPassword')->getData();
-                if ($newMdp == $confMdP) {
-                    $user->setPassword($userPasswordHasher->hashPassword($user, $newMdp));
-                } else {
-                    $this->addFlash('error', 'les deux mots de passe sont différents');
-                }
+                $user->setPassword($userPasswordHasher->hashPassword($user, $newMdp));
             }
             $upload = new Upload();
             $file = $form->get('file')->getData();

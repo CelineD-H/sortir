@@ -7,6 +7,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -24,22 +25,14 @@ class ModificationProfilType extends AbstractType
             ->add('lastName')
             ->add('email')
             ->add('telephone')
-            ->add('password', PasswordType::class, [
-                'label' => 'Nouveau Mot de passe',
-                'required' => false,
-                'constraints' => [
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ])
-                ]
-            ])
-            ->add('confirmationPassword', PasswordType::class, [
-                'label' => 'Confirmation du nouveau Mot de passe',
+            ->add('newPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'Les deux mots de passe doivent être identiques',
+                'options' => ['attr' => ['class' => 'password-field']],
                 'required' => false,
                 'mapped' => false,
+                'first_options'  => ['label' => 'Nouveau mot de passe'],
+                'second_options' => ['label' => 'Confirmation du nouveau mot de passe'],
                 'constraints' => [
                     new Length([
                         'min' => 6,
