@@ -9,20 +9,31 @@ use App\Entity\Sortie;
 use App\Entity\User;
 use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures  extends Fixture
 {
     private $userPasswordHasher;
+    private $entityManager;
 
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager)
     {
         $this->userPasswordHasher = $userPasswordHasher;
+        $this->entityManager = $entityManager;
     }
 
     public function load(ObjectManager $manager): void
     {
+        $connection = $this->entityManager->getConnection();
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS=0');
+        $connection = $this->entityManager->getConnection();
+
+        $platform = $connection->getDatabasePlatform();
+        $connection->executeStatement($platform->getTruncateTableSQL('etat', true));
+        $this->entityManager->getConnection()->executeQuery('SET FOREIGN_KEY_CHECKS=1');
+
         $etat1 = new Etat();
         $etat1->setLibelle('Créée');
         $manager->persist($etat1);
