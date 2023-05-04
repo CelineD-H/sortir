@@ -45,6 +45,7 @@ security:
         - { path: ^/lieu/list, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()"}
         - { path: ^/user/list, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
         - { path: ^/ville/list, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
+        - { path: ^/statut, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
         - { path: ^/user, allow_if: "is_granted('ROLE_USER') and user.isActif()" }
         - { path: ^/ville, allow_if: "is_granted('ROLE_USER') and user.isActif()" }
         - { path: ^/lieu, allow_if: "is_granted('ROLE_USER') and user.isActif()" }

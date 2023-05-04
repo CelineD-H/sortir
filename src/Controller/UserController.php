@@ -103,48 +103,23 @@ class UserController extends AbstractController
         ]);*/
     }
 
-    #[Route('/disable/{id}', name: 'disable')]
-    public function disable(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/statut/{choice}', name: 'statut')]
+    public function disable(int $id, string $choice, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
     {
-        $userADesactiver = $userRepository->find($id);
-        $userQuiDesactive = $this->getUser();
+        $user = $userRepository->find($id);
 
-        if(!$userADesactiver) {
+        if(!$user) {
             throw $this->createNotFoundException();
         }
 
-        if (in_array('ROLE_ADMIN', $userQuiDesactive->getRoles())) {
-            $userADesactiver->setActif(false);
-            $entityManager->persist($userADesactiver);
-            $entityManager->flush();
+        $statut = $choice === 'enable' ? true : false;
 
-            $this->addFlash('success', "Le compte ".$userADesactiver->getPseudo()." a été désactivé !");
-            return $this->redirectToRoute("user_list");
-        } else {
-            throw $this->createAccessDeniedException();
-        }
-    }
+        $user->setActif($statut);
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-    #[Route('/enable/{id}', name: 'enable')]
-    public function enable(int $id, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
-    {
-        $userAActiver = $userRepository->find($id);
-        $userQuiActive = $this->getUser();
-
-        if(!$userAActiver) {
-            throw $this->createNotFoundException();
-        }
-
-        if (in_array('ROLE_ADMIN', $userQuiActive->getRoles())) {
-            $userAActiver->setActif(true);
-            $entityManager->persist($userAActiver);
-            $entityManager->flush();
-
-            $this->addFlash('success', "Le compte ".$userAActiver->getPseudo()." a été activé !");
-            return $this->redirectToRoute("user_list");
-        } else {
-            throw $this->createAccessDeniedException();
-        }
+        $this->addFlash('success', "Le compte ".$user->getPseudo()." a été désactivé !");
+        return $this->redirectToRoute("user_list");
     }
 
     #[Route('/list', name: 'list')]
