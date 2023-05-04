@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SortieController extends AbstractController
 {
     #[Route('/..', name: 'home')]
-    public function home(Request $request, SortieRepository $sortieRepository): Response
+    public function home(Request $request, SortieRepository $sortieRepository, EtatRepository $etatRepository, EntityManagerInterface $entityManager): Response
     {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
@@ -61,13 +61,43 @@ class SortieController extends AbstractController
 
         $form->handleRequest($request);
 
+        $sorties = $sortieRepository->findAll();
+        for ($i = 0; $i < count($sorties); $i++)  {
+            $sortie = $sorties[$i];
+            $currentDate = new \DateTime();
+            $expiration = date('Y-m-d H:i:s',date_timestamp_get($sortie->getDateHeureDebut()) + date_timestamp_get($sortie->getDuree())+3600);
+
+            // Si la sortie est annulée
+            if($sortie->getEtat() < $etatRepository->find(6)) {
+                // Si un commentaire d'annulation est présent
+                if(strlen($sortie->getDeleteMessage()) > 0) {
+                    $sortie->setDeleteMessage(null);
+                }
+
+                // Si la date d'inscription est dépassée
+                if($sortie->getDateLimiteInscription() < $currentDate) {
+                    $sortie->setEtat($etatRepository->find(3));
+                }
+                // Si la date de début est dépassée
+                if($sortie->getDateHeureDebut() < $currentDate) {
+                    if($expiration > date('Y-m-d H:i:s', $currentDate->getTimestamp()))
+                        $sortie->setEtat($etatRepository->find(4));
+                    else
+                        $sortie->setEtat($etatRepository->find(5));
+                }
+
+                $entityManager->persist($sortie);
+            }
+        }
+
+        $entityManager->flush();
+
         if ($form->isSubmitted() && $form->isValid()) {
             $filtres = $form->getData();
             $sorties = $sortieRepository->filtreSorties($filtres, $this->getUser());
         } else {
             $sorties = $sortieRepository->allSorties();
         }
-        dump($sorties);
 
         return $this->render('main/index.html.twig', [
             "sorties" => $sorties,
