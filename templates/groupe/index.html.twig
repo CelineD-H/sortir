@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello GroupeController!{% endblock %}
+
+{% block body %}
+{{ form_start(groupeForm) }}
+    {{ form_widget(groupeForm) }}
+<button class="btn btn-primary">Ajouter</button>
+    {{ form_end(groupeForm) }}
+{% endblock %}
