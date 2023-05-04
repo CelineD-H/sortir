@@ -16,6 +16,7 @@ class GroupeFormType extends AbstractType
             ->add('nom')
             ->add('users', EntityType::class, [
                 'class' => 'App\Entity\User',
+                'multiple'=> true,
                 'choice_label' => function ($user) {
                     return $user->__toString();
                 }
