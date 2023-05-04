@@ -75,7 +75,7 @@ class SortieController extends AbstractController
     public function createSortie(Request $request, EntityManagerInterface $entityManager, EtatRepository $etatRepository): Response
     {
         $user = $this->getUser();
-        $etat = $etatRepository->find(1);
+        $etat = $etatRepository->findOneBy(['libelle' => 'Créée']);
 
         $sortie = new Sortie();
         $sortie->setEtat($etat);
