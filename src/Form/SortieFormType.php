@@ -38,7 +38,7 @@ class SortieFormType extends AbstractType
                     new Regex([
                         'pattern' => '/\b([2-9]|[1-9][0-9])\b/',
                         'match' => true,
-                        'message' => 'Il doit y avoir au moins deux participants'
+                        'message' => 'Il doit y avoir au moins deux participants et 99 maximum'
                     ])
                 ]
             ])
