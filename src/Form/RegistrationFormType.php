@@ -7,6 +7,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
@@ -18,11 +19,11 @@ class RegistrationFormType extends AbstractType
     {
         $campus =
         $builder
-            ->add('pseudo')
-            ->add('email')
-            ->add('firstName')
-            ->add('lastName')
-            ->add('telephone')
+            ->add('pseudo', TextType::class)
+            ->add('email', TextType::class)
+            ->add('firstName', TextType::class)
+            ->add('lastName', TextType::class)
+            ->add('telephone', TextType::class)
             ->add('campus', EntityType::class, [
                 'class' => 'App\Entity\Campus',
                 'choice_label' => 'nom'
