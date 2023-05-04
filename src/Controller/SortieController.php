@@ -27,6 +27,10 @@ class SortieController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
+        if(!$this->getUser()->isActif()) {
+            return $this->redirectToRoute('app_logout');
+        }
+
         $form = $this->createFormBuilder()
             ->add('campus', EntityType::class, [
                 'class' => Campus::class,

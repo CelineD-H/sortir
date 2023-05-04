@@ -39,17 +39,15 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        - { path: ^/register, roles: ROLE_ADMIN }
-        - { path: ^/campus, roles: ROLE_ADMIN }
-        - { path: ^/lieu/list, roles: ROLE_ADMIN }
-        - { path: ^/user/list, roles: ROLE_ADMIN }
-        - { path: ^/ville/list, roles: ROLE_ADMIN }
-        - { path: ^/profil, roles: ROLE_USER }
-        - { path: ^/user, roles: ROLE_USER }
-        - { path: ^/sortie, roles: ROLE_USER }
-        - { path: ^/ville, roles: ROLE_USER }
-        - { path: ^/lieu, roles: ROLE_USER }
+        - { path: ^/admin, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
+        - { path: ^/register, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
+        - { path: ^/campus, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
+        - { path: ^/lieu/list, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()"}
+        - { path: ^/user/list, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
+        - { path: ^/ville/list, allow_if: "is_granted('ROLE_ADMIN') and user.isActif()" }
+        - { path: ^/user, allow_if: "is_granted('ROLE_USER') and user.isActif()" }
+        - { path: ^/ville, allow_if: "is_granted('ROLE_USER') and user.isActif()" }
+        - { path: ^/lieu, allow_if: "is_granted('ROLE_USER') and user.isActif()" }
 
 
 when@test:
