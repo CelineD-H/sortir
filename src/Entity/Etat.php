@@ -52,22 +52,22 @@ class Etat
         return $this->sorties;
     }
 
-    public function addSorty(Sortie $sorty): self
+    public function addSortie(Sortie $sortie): self
     {
-        if (!$this->sorties->contains($sorty)) {
-            $this->sorties->add($sorty);
-            $sorty->setEtat($this);
+        if (!$this->sorties->contains($sortie)) {
+            $this->sorties->add($sortie);
+            $sortie->setEtat($this);
         }
 
         return $this;
     }
 
-    public function removeSorty(Sortie $sorty, EtatRepository $etatRepository): self
+    public function removeSortie(Sortie $sortie, EtatRepository $etatRepository): self
     {
-        if ($this->sorties->removeElement($sorty)) {
+        if ($this->sorties->removeElement($sortie)) {
             // set the owning side to null (unless already changed)
-            if ($sorty->getEtat() === $this) {
-                $sorty->setEtat($etatRepository->findOneBy(['libelle' => 'Annulée']));
+            if ($sortie->getEtat() === $this) {
+                $sortie->setEtat($etatRepository->findOneBy(['libelle' => 'Annulée']));
             }
         }
 
