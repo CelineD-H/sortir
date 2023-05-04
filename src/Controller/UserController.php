@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Upload;
 use App\Form\ModificationProfilType;
 use App\Repository\CampusRepository;
+use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
@@ -75,36 +76,9 @@ class UserController extends AbstractController
             "user" => $user
         ]);
     }
-    #[Route('/delete/{id}', name: 'delete')]
-    public function delete(int $id, UserRepository $userRepository): Response
-    {
-        $userASupprimer = $userRepository->find($id);
-        $userQuiSupprimer = $this->getUser();
-
-        if(!$userASupprimer) {
-            throw $this->createNotFoundException();
-        }
-
-        $route = "app_home";
-
-        if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) || $userQuiSupprimer === $userASupprimer) {
-            $userRepository->remove($userASupprimer, true);
-
-            if (in_array('ROLE_ADMIN', $userQuiSupprimer->getRoles()) && $userQuiSupprimer !== $userASupprimer)
-                $route = "user_list";
-        }
-
-        $this->addFlash('success', "Le compte ".$userASupprimer->getPseudo()." a été supprimé !");
-
-        return $this->redirectToRoute($route);
-
-        /*return $this->render('user/delete.html.twig', [
-            "user" => $user
-        ]);*/
-    }
 
     #[Route('/{id}/statut/{choice}', name: 'statut')]
-    public function disable(int $id, string $choice, UserRepository $userRepository, EntityManagerInterface $entityManager): Response
+    public function disable(int $id, string $choice, UserRepository $userRepository, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
     {
         $user = $userRepository->find($id);
 
@@ -112,13 +86,31 @@ class UserController extends AbstractController
             throw $this->createNotFoundException();
         }
 
-        $statut = $choice === 'enable' ? true : false;
+        switch ($choice) {
+            case 'enable':
+                $user->setActif(true);
+                $entityManager->persist($user);
+                $this->addFlash('success', "Le compte ".$user->getPseudo()." a été activé !");
+                break;
+            case 'disable':
+                $user->setActif(false);
+                $entityManager->persist($user);
+                $this->addFlash('success', "Le compte ".$user->getPseudo()." a été désactivé !");
+                break;
+            case 'delete':
+                $sorties = $sortieRepository->findBy(['organisateur' => $user]);
+                for ($i = 0; $i < count($sorties); $i++) {
+                    $sortieRepository->remove($sorties[$i]);
+                    $this->addFlash('success', "La sortie " . $sorties[$i]->getNom() . " a été supprimée.");
+                }
 
-        $user->setActif($statut);
-        $entityManager->persist($user);
+                $userRepository->remove($user);
+                $this->addFlash('success', "Le compte ".$user->getPseudo()." a été supprimé !");
+                break;
+        }
+
         $entityManager->flush();
 
-        $this->addFlash('success', "Le compte ".$user->getPseudo()." a été désactivé !");
         return $this->redirectToRoute("user_list");
     }
 
