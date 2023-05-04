@@ -4,20 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Upload;
 use App\Form\ModificationProfilType;
-use App\Repository\CampusRepository;
+use App\Repository\GroupRepository;
 use App\Repository\SortieRepository;
 use App\Repository\UserRepository;
 use App\Service\FileUploader;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 #[Route('/user', name: 'user_')]
 class UserController extends AbstractController
@@ -64,21 +61,22 @@ class UserController extends AbstractController
     }
 
     #[Route('/view/{id}', name: 'view')]
-    public function details(int $id, UserRepository $userRepository): Response
+    public function details(int $id, UserRepository $userRepository, GroupRepository $groupRepository): Response
     {
         $user = $userRepository->find($id);
-
+        $group = $groupRepository->findGroupByUser($user);
         if(!$user) {
             throw $this->createNotFoundException();
         }
 
         return $this->render('user/view.html.twig', [
-            "user" => $user
+            "user" => $user,
+            "groups" => $group,
         ]);
     }
 
     #[Route('/{id}/statut/{choice}', name: 'statut')]
-    public function disable(int $id, string $choice, UserRepository $userRepository, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
+    public function statut(int $id, string $choice, UserRepository $userRepository, SortieRepository $sortieRepository, EntityManagerInterface $entityManager): Response
     {
         $user = $userRepository->find($id);
 

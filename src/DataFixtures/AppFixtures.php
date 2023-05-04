@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\Campus;
 use App\Entity\Etat;
+use App\Entity\Group;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\User;
@@ -326,6 +327,27 @@ class AppFixtures  extends Fixture
         $sortie6->setLieu($lieu2);
         $sortie6->setCampus($campus1);
         $manager->persist($sortie6);
+
+        $group1 = new Group();
+        $group1->addUser($user1);
+        $group1->addUser($user2);
+        $group1->addUser($user5);
+        $group1->setNom('Groupe1');
+        $manager->persist($group1);
+
+        $group2 = new Group();
+        $group2->addUser($user3);
+        $group2->addUser($user5);
+        $group2->addUser($user6);
+        $group2->setNom('Groupe2');
+        $manager->persist($group2);
+
+        $group3 = new Group();
+        $group3->addUser($user3);
+        $group3->addUser($user2);
+        $group3->addUser($user4);
+        $group3->setNom('Groupe3');
+        $manager->persist($group3);
 
         $manager->flush();
     }

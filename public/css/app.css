@@ -229,6 +229,7 @@ thead th {
     border-radius: 5% 40%;
     margin: 15px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }

@@ -18,13 +18,40 @@
                 <p>Téléphone : {{ user.telephone }}</p>
                 <p>Email : {{ user.email }}</p>
             </div>
-
+            <div>
+                {% if app.user == user or is_granted('ROLE_ADMIN') %}
+                    <button onclick="location.href='{{ path('user_edit', {'id': user.id}) }}'">Modifier</button>
+                {% endif %}
+                <button onclick="history.back()">Retour</button>
+            </div>
         </div>
     </div>
+    <table>
+        <thead>
+        <tr>
+            <th colspan="1">Liste des groupes</th>
+            <th colspan="1"><a href="{{ path('campus_create') }}" title="Créer un groupe">Nouveau groupe</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th>Groupe</th>
+            <th>Actions</th>
+        </tr>
+        {% for groupe in groups %}
 
-    {% if app.user == user or is_granted('ROLE_ADMIN') %}
-        <button onclick="location.href='{{ path('user_edit', {'id': user.id}) }}'">Modifier</button>
-    {% endif %}
-    <button onclick="history.back()">Retour</button>
+            <tr>
+                <td><a href="{{ path('campus_create') }}">{{ groupe.nom }}</a></td>
+                <td><a href="{{ path('campus_create') }}">Modifier</a> | <a href="{{ path('campus_create') }}">Supprimer</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="1">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+            <td colspan="1">Total groupes : {{ groups|length }}</td>
+        </tr>
+        </tfoot>
+    </table>
 
 {% endblock %}
