@@ -168,7 +168,7 @@ class SortieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $etat = $etatRepository->find(6);
+            $etat = $etatRepository->findOneBy(['libelle' => 'Annulée']);
             $sortie->setEtat($etat);
             $entityManager->persist($sortie);
             $entityManager->flush();

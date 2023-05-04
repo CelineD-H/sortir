@@ -62,12 +62,12 @@ class Etat
         return $this;
     }
 
-    public function removeSorty(Sortie $sorty): self
+    public function removeSorty(Sortie $sorty, EtatRepository $etatRepository): self
     {
         if ($this->sorties->removeElement($sorty)) {
             // set the owning side to null (unless already changed)
             if ($sorty->getEtat() === $this) {
-                $sorty->setEtat(null);
+                $sorty->setEtat($etatRepository->findOneBy(['libelle' => 'Annulée']));
             }
         }
 
