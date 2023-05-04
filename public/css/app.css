@@ -3,17 +3,6 @@ header {
     border-radius: 10px;
 }
 
-.header-title {
-    padding: 0 80px;
-    display: flex;
-    height: 155px;
-}
-
-.header-body {
-    margin: auto;
-    text-align: center;
-}
-
 header h1 {
     font-family: 'Bruno Ace', cursive;
 }
@@ -28,12 +17,14 @@ header h1 {
 .sticky + .main {
     padding-top: 60px;
 }
-#navbar ul {
+
+#navbar {
     background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("../img/leopardskin.jpg");
-    display: flex;
-    list-style: none;
     border-radius: 0 0 10px 10px;
-    margin-top: 0;
+}
+
+#navbar li:hover {
+    background-color: rgba(207, 102, 160, 0.7);
 }
 
 #navbar-admin ul {
@@ -44,24 +35,12 @@ header h1 {
     margin: -1rem -1rem 0 -1rem;
 }
 
-nav li:hover {
-    background-color: rgba(207, 102, 160, 0.7);
-}
-
-nav li {
-    padding: 1rem;
-}
-nav a {
-    text-decoration: none;
-    color: #e0e0e0;
-}
-
 body {
     background: linear-gradient(#1c001c, #f900ff6e) fixed;
     color: #eee;
     font-family: "Ubuntu", serif;
 }
-
+/*
 .container {
     max-width: 1000px;
     margin: auto;
@@ -71,7 +50,7 @@ body {
 body > .container {
     min-height: 90vh;
 }
-
+*/
 main {
     background-color: #00000050;
     border-radius: 10px;
@@ -99,9 +78,9 @@ input, textarea, select, label {
 #remember {
     width: auto;
 }
-.checkbox {
+/*.checkbox {
     width: auto;
-}
+}*/
 footer > div {
     padding: 15px;
     margin: auto;
@@ -266,6 +245,16 @@ thead th {
     margin: -1rem;
 }
 
+.btn-primary {
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+    border-color: #864487;
+}
+
+.btn-primary:hover {
+    background: rgba(134, 68, 135, 0.3);
+    border-color: #864487;
+}
+
 .bg-danger {
     background-color: red!important;
 }
@@ -274,13 +263,13 @@ thead th {
     background-color: green!important;
 }
 
-.flex {
+/*.flex {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-}
+}*/
 
 a {
     color: #ff8afb;
