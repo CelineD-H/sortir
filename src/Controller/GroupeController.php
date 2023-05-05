@@ -4,6 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Group;
 use App\Form\GroupeFormType;
+use App\Repository\CampusRepository;
+use App\Repository\GroupRepository;
+use App\Repository\LieuRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +31,31 @@ class GroupeController extends AbstractController
         }
         return $this->render('groupe/index.html.twig', [
             'groupeForm' => $form->createView()
+        ]);
+    }
+
+    #[Route('/list', name: 'list')]
+    public function list(Request $request, EntityManagerInterface $entityManager, GroupeRepository $groupeRepository): Response
+    {
+        $groupes = $groupeRepository->findAll();
+
+        return $this->render('groupe/list.html.twig', [
+            "groupes" => $groupes,
+        ]);
+    }
+
+    #[Route('/view/{id}', name: 'view')]
+    public function details(int $id, GroupRepository $groupRepository): Response
+    {
+        $groupe = $groupRepository->find($id);
+
+
+        if(!$groupe) {
+            throw $this->createNotFoundException();
+        }
+
+        return $this->render('groupe/view.html.twig', [
+            "groupe" => $groupe,
         ]);
     }
 }

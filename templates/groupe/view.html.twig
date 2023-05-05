@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | {{ groupe.nom }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <table>
+            <thead>
+            <tr>
+                <th colspan="1">{{ groupe.nom }}</th>
+                <th colspan="1"><a href="{{ path('groupe_create') }}" title="Créer un groupe">Nouveau groupe</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Membres</th>
+                <th>Actions</th>
+            </tr>
+            {% for membre in groupe.users %}
+
+                <tr>
+                    <td><a href="{{ path('user_view', { 'id': membre.id }) }}">{{ membre.nom }}</a></td>
+                    <td><a href="{{ path('campus_create') }}">Modifier</a> | <a href="{{ path('campus_create') }}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+                <td colspan="1">Total membres : {{ groupe.users|length }}</td>
+            </tr>
+            </tfoot>
+        </table>
+
+    </div>
+{% endblock %}
