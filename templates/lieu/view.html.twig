@@ -7,12 +7,9 @@
 {% block body %}
     {% include 'inc/navadmin.html.twig' %}
     <div class="container">
-        <h2>{{ lieu.nom }}</h2>
-        <h3>{{ lieu.ville.nom }}</h3>
-
         {% set urlCarte = "https://www.google.com/maps/place/" %}
-
-        <a href="{{ urlCarte }}{{ lieu.latitude }}+{{ lieu.longitude }}" target="_blank">Localisation</a>
+        <h2>{{ lieu.nom }} à <a href="{{ path('ville_view', {'id': lieu.ville.id}) }}">{{ lieu.ville.nom }}</a></h2>
+        <h3><a href="{{ urlCarte }}{{ lieu.latitude }}+{{ lieu.longitude }}" target="_blank">Localisation</a> | <a href="{{ path('lieu_edit', {'id': lieu.id}) }}">Modifier</a></h3>
 
         <iframe
                 width="600"
@@ -24,6 +21,5 @@
                 src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBEwgC7YNEgeuTKuxzqTs4BxeiZXz4Vgc8&q={{ lieu.latitude }}+{{ lieu.longitude }}">
         </iframe>
 
-        <a href="{{ path('lieu_edit', {'id': lieu.id}) }}">Modifier</a><a href="{{ path('lieu_delete', {'id': lieu.id}) }}"></a>
     </div>
 {% endblock %}
