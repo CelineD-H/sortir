@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Lieu{% endblock %}
+{% block title %}
+    {{ parent() }} | Création d'un lieu
+{% endblock %}
 
 {% block body %}
-    {{ form_start(lieuForm) }}
-    {{ form_widget(lieuForm) }}
-    <button type="submit">Envoyer</button>
-    {{ form_end(lieuForm) }}
+    <div class="container">
+        {{ form_start(lieuForm) }}
+        {{ form_widget(lieuForm) }}
+        <button type="submit">Envoyer</button>
+        {{ form_end(lieuForm) }}
 
-    {% if "/sortie/create" in referer %}
-        <button onclick="history.back()">Retour</button>
-    {% endif %}
+        {% if "/sortie/create" in referer %}
+            <button onclick="history.back()">Retour</button>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -73,7 +73,7 @@ class LieuController extends AbstractController
     public function edit(int $id, Request $request, EntityManagerInterface $entityManager, LieuRepository $lieuRepository): Response
     {
         if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
-            $this->redirectToRoute('app_home');
+            $this->redirectToRoute('sortie_home');
         }
 
         $lieu = $lieuRepository->find($id);

@@ -8,23 +8,23 @@
         <div class="collapse navbar-collapse" id="navbarContent">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{ path('sortie_home') }}" title="Page d'accueil">Page d'accueil</a>
+                    <a class="nav-link" href="{{ path('sortie_home') }}" title="Page d'accueil"><span class="mdi mdi-home"></span> Accueil</a>
                 </li>
                 {% if app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_view', {'id': app.user.id}) }}" title="Profil">Mon profil</a>
+                        <a class="nav-link" href="{{ path('user_view', {'id': app.user.id}) }}" title="Profil"><span class="mdi mdi-account"></span> Mon profil</a>
                     </li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('admin_dashboard') }}" title="Administration">Administration</a>
+                            <a class="nav-link" href="{{ path('admin_dashboard') }}" title="Administration"><span class="mdi mdi-shield-account"></span> Administration</a>
                         </li>
                     {% endif %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}" title="Déconnexion">Déconnexion</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}" title="Déconnexion"><span class="mdi mdi-logout"></span> Déconnexion</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}" title="Connexion">Connexion</a>
+                        <a class="nav-link" href="{{ path('app_login') }}" title="Connexion"><span class="mdi mdi-login"></span> Connexion</a>
                     </li>
                 {% endif %}
             </ul>

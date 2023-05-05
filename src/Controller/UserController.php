@@ -56,17 +56,23 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', [
-            'ModificationProfilForm' => $form->createView()
+            'ModificationProfilForm' => $form->createView(),
+            'user' => $user
         ]);
     }
 
     #[Route('/view/{id}', name: 'view')]
     public function details(int $id, UserRepository $userRepository, GroupRepository $groupRepository): Response
     {
+        $group = null;
         $user = $userRepository->find($id);
-        $group = $groupRepository->findGroupByUser($user);
+
         if(!$user) {
             throw $this->createNotFoundException();
+        }
+
+        if ($user === $this->getUser()) {
+            $group = $groupRepository->findGroupByUser($user);
         }
 
         return $this->render('user/view.html.twig', [

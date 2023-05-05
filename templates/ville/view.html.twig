@@ -5,23 +5,24 @@
 {% endblock %}
 
 {% block body %}
+    {% include 'inc/navadmin.html.twig' %}
+    <div class="container">
+        <h2>{{ ville.nom }}</h2>
 
-    <h2>{{ ville.nom }}</h2>
+        {% set urlCarte = "https://www.google.com/maps/place/" %}
 
-    {% set urlCarte = "https://www.google.com/maps/place/" %}
+        <a href="{{ urlCarte }}{{ ville.codePostal }}" target="_blank">Localisation</a>
 
-    <a href="{{ urlCarte }}{{ ville.codePostal }}" target="_blank">Localisation</a>
+        <iframe
+                width="600"
+                height="450"
+                style="border:0"
+                loading="lazy"
+                allowfullscreen
+                referrerpolicy="no-referrer-when-downgrade"
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBEwgC7YNEgeuTKuxzqTs4BxeiZXz4Vgc8&q={{ ville.codePostal }}">
+        </iframe>
 
-    <iframe
-            width="600"
-            height="450"
-            style="border:0"
-            loading="lazy"
-            allowfullscreen
-            referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAxrv2VyFhOTxPAmu064tlUroZJ89ivoqo&q={{ ville.codePostal }}">
-    </iframe>
-
-    <a href="{{ path('ville_edit', {'id': ville.id}) }}">[ Modifier ]</a> <a href="{{ path('ville_delete', {'id': ville.id}) }}">[ Supprimer ]</a>
-
+        <a href="{{ path('ville_edit', {'id': ville.id}) }}">[ Modifier ]</a> <a href="{{ path('ville_delete', {'id': ville.id}) }}">[ Supprimer ]</a>
+    </div>
 {% endblock %}

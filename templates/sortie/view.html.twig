@@ -5,20 +5,20 @@
 {% endblock %}
 
 {% block body %}
-
-    {% if sortie.etat.id == 6 %}
-        <div class="flash flash-error">
-            La sortie a été annulée pour la raison suivante : {{ sortie.deleteMessage }}
-        </div>
-    {% elseif "now"|date('Y-m-d H:i:s') > sortie.dateHeureDebut|date('Y-m-d H:i:s') and "now"|date('Y-m-d H:i:s') < dateExpiration|date('Y-m-d H:i:s') %}
-        <div class="flash flash-success">
-            La sortie a déjà commencée et prendra fin le {{ dateExpiration|format_datetime('full', 'none', locale='fr')|capitalize() }} !
-        </div>
-    {% elseif "now"|date('Y-m-d H:i:s') > dateExpiration|date('Y-m-d H:i:s')  %}
-        <div class="flash flash-success">
-            La sortie est terminée depuis le {{ dateExpiration|format_datetime('full', 'none', locale='fr')|capitalize()}} !
-        </div>
-    {% endif %}
+    <div class="container">
+        {% if sortie.etat.id == 6 %}
+            <div class="flash flash-error">
+                La sortie a été annulée pour la raison suivante : {{ sortie.deleteMessage }}
+            </div>
+        {% elseif "now"|date('Y-m-d H:i:s') > sortie.dateHeureDebut|date('Y-m-d H:i:s') and "now"|date('Y-m-d H:i:s') < dateExpiration|date('Y-m-d H:i:s') %}
+            <div class="flash flash-success">
+                La sortie a déjà commencée et prendra fin le {{ dateExpiration|format_datetime('full', 'none', locale='fr')|capitalize() }} !
+            </div>
+        {% elseif "now"|date('Y-m-d H:i:s') > dateExpiration|date('Y-m-d H:i:s')  %}
+            <div class="flash flash-success">
+                La sortie est terminée depuis le {{ dateExpiration|format_datetime('full', 'none', locale='fr')|capitalize()}} !
+            </div>
+        {% endif %}
 
         <div class="view-head">
             <div class="sortie-organisation">
@@ -61,4 +61,5 @@
         <div class="view-body sortie-details">
             <p>{{ sortie.infosSortie }}</p>
         </div>
+    </div>
 {% endblock %}

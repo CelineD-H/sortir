@@ -1,11 +1,30 @@
-<nav id="navbar-admin">
-    <ul>
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('admin_dashboard') }}" title="Dashboard"><li>Dashboard</li></a>
-            <a href="{{ path('campus_list') }}" title="Lieux"><li>Campus</li></a>
-            <a href="{{ path('lieu_list') }}" title="Lieux"><li>Lieux</li></a>
-            <a href="{{ path('user_list') }}" title="Utilisateurs"><li>Utilisateurs</li></a>
-            <a href="{{ path('ville_list') }}" title="Villes"><li>Ville</li></a>
-        {% endif %}
-    </ul>
-</nav>
+{% if is_granted('ROLE_ADMIN') %}
+    <nav class="navbar navbar-expand-sm navbar-dark" id="navbar-admin">
+        <div class="container">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarAdminContent" aria-controls="navbarAdminContent" aria-expanded="false" aria-label="Barre de navigation d'administration">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarAdminContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin_dashboard') }}" title="Dashboard"><span class="mdi mdi-monitor-dashboard"></span> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('campus_list', {'id': app.user.id}) }}" title="Campus"><span class="mdi mdi-campfire"></span> Campus</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('lieu_list') }}" title="Lieux"><span class="mdi mdi-crosshairs-gps"></span> Lieux</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('user_list') }}" title="Utilisateurs"><span class="mdi mdi-account-supervisor"></span> Utilisateurs</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('ville_list') }}" title="Ville"><span class="mdi mdi-city"></span> Ville</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endif %}

@@ -4,14 +4,15 @@
 
 {% block body %}
     {% include 'inc/navadmin.html.twig' %}
-    <table>
-        <thead>
+    <div class="container">
+        <table>
+            <thead>
             <tr>
                 <th colspan="5">Informations générales</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
+            <tbody>
             <tr>
                 <th>Campus</th>
                 <th>Lieux</th>
@@ -27,12 +28,13 @@
                 <td>{{ users|length }}</td>
                 <td>{{ villes|length }}</td>
             </tr>
-        </tbody>
+            </tbody>
 
-        <tfoot>
+            <tfoot>
             <tr>
                 <td colspan="5">Nous sommes le {{ "now" | date ("d/m/Y à H:i:s") }}</td>
             </tr>
-        </tfoot>
-    </table>
+            </tfoot>
+        </table>
+    </div>
 {% endblock %}

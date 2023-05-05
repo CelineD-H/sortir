@@ -1,36 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connexion{% endblock %}
+{% block title %}
+    {{ parent() }} | Connexion
+{% endblock %}
 
 {% block body %}
-    <form action="{{ path('app_login') }}" method="post">
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    <div class="container">
+        <form action="{{ path('app_login') }}" method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-        {% if app.user %}
-            <div class="mb-3">
-                Tu es déjà connecté à {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            {% if app.user %}
+                <div class="mb-3">
+                    Tu es déjà connecté à {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                </div>
+            {% endif %}
+
+            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+            <label for="inputPseudo">Pseudo</label>
+            <input type="text" value="{{ last_username }}" name="_username" id="inputPseudo" class="form-control" autocomplete="pseudo" required autofocus>
+            <label for="inputPassword">Password</label>
+            <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input id="remember" type="checkbox" name="_remember_me"> Remember me
+                </label>
             </div>
-        {% endif %}
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="inputPseudo">Pseudo</label>
-        <input type="text" value="{{ last_username }}" name="_username" id="inputPseudo" class="form-control" autocomplete="pseudo" required autofocus>
-        <label for="inputPassword">Password</label>
-        <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-
-        <div class="checkbox mb-3">
-            <label>
-                <input id="remember" type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-    <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+            <button class="btn btn-lg btn-primary" type="submit">
+                Sign in
+            </button>
+        </form>
+        <a href="{{ path('app_forgot_password_request') }}">Mot de passe oublié</a>
+    </div>
 {% endblock %}

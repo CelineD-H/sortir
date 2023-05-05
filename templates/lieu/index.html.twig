@@ -1,37 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Administration{% endblock %}
+{% block title %}
+    {{ parent() }} | Administration
+{% endblock %}
 
 {% block body %}
     {% include 'inc/navadmin.html.twig' %}
-    <table>
-        <thead>
-        <tr>
-            <th colspan="2">Liste des lieux</th>
-            <th colspan="1"><a href="{{ path('lieu_create') }}" title="Créer un lieu">Nouveau lieu</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>Nom</th>
-            <th>Ville</th>
-            <th>Actions</th>
-        </tr>
-        {% for lieu in lieux %}
-
+    <div class="container">
+        <table>
+            <thead>
             <tr>
-                <td><a href="{{ path('lieu_view', {'id': lieu.id}) }}">{{ lieu.nom }}</a></td>
-                <td><a href="{{ path('ville_view', {'id': lieu.ville.id}) }}">{{ lieu.ville.nom }}</a></td>
-                <td><a href="{{ path('lieu_edit', {'id': lieu.id}) }}">Modifier</a> | <a href="{{ path('lieu_delete', {'id': lieu.id}) }}">Supprimer</a></td>
+                <th colspan="2">Liste des lieux</th>
+                <th colspan="1"><a href="{{ path('lieu_create') }}" title="Créer un lieu">Nouveau lieu</a></th>
             </tr>
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="2">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
-            <td colspan="1">Total lieux : {{ lieux|length }}</td>
-        </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Nom</th>
+                <th>Ville</th>
+                <th>Actions</th>
+            </tr>
+            {% for lieu in lieux %}
 
+                <tr>
+                    <td><a href="{{ path('lieu_view', {'id': lieu.id}) }}">{{ lieu.nom }}</a></td>
+                    <td><a href="{{ path('ville_view', {'id': lieu.ville.id}) }}">{{ lieu.ville.nom }}</a></td>
+                    <td><a href="{{ path('lieu_edit', {'id': lieu.id}) }}">Modifier</a> | <a href="{{ path('lieu_delete', {'id': lieu.id}) }}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+                <td colspan="1">Total lieux : {{ lieux|length }}</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
 {% endblock %}

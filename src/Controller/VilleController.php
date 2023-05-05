@@ -67,7 +67,7 @@ class VilleController extends AbstractController
     public function edit(int $id, Request $request, EntityManagerInterface $entityManager, VilleRepository $villeRepository): Response
     {
         if (in_array('ROLE_ADMIN', $this->getUser()->getRoles())) {
-            $this->redirectToRoute('app_home');
+            $this->redirectToRoute('sortie_home');
         }
 
         $ville = $villeRepository->find($id);

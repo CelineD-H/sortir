@@ -1,37 +1,40 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Villes{% endblock %}
+{% block title %}
+    {{ parent() }} | Liste des villes
+{% endblock %}
 
 {% block body %}
     {% include 'inc/navadmin.html.twig' %}
-    <table>
-        <thead>
-        <tr>
-            <th colspan="2">Liste des villes</th>
-            <th colspan="1"><a href="{{ path('ville_create') }}" title="Créer une ville">Nouvelle ville</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>Ville</th>
-            <th>Code Postal</th>
-            <th>Actions</th>
-        </tr>
-        {% for ville in villes %}
-
+    <div class="container">
+        <table>
+            <thead>
             <tr>
-                <td><a href="{{ path('ville_view', {'id': ville.id}) }}">{{ ville.nom }}</a></td>
-                <td>{{ ville.codePostal }}</td>
-                <td><a href="{{ path('ville_edit', {'id': ville.id}) }}">Modifier</a> | <a href="{{ path('ville_delete', {'id': ville.id}) }}">Supprimer</a></td>
+                <th colspan="2">Liste des villes</th>
+                <th colspan="1"><a href="{{ path('ville_create') }}" title="Créer une ville">Nouvelle ville</a></th>
             </tr>
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="2">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
-            <td colspan="1">Total villes : {{ villes|length }}</td>
-        </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Ville</th>
+                <th>Code Postal</th>
+                <th>Actions</th>
+            </tr>
+            {% for ville in villes %}
 
+                <tr>
+                    <td><a href="{{ path('ville_view', {'id': ville.id}) }}">{{ ville.nom }}</a></td>
+                    <td>{{ ville.codePostal }}</td>
+                    <td><a href="{{ path('ville_edit', {'id': ville.id}) }}">Modifier</a> | <a href="{{ path('ville_delete', {'id': ville.id}) }}">Supprimer</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+                <td colspan="1">Total villes : {{ villes|length }}</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
 {% endblock %}

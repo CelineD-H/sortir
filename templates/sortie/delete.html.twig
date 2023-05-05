@@ -1,10 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Suppression d'une sortie{% endblock %}
+{% block title %}
+    {{ parent() }} | Suppression d'une sortie
+{% endblock %}
 
 {% block body %}
-    {{ form_start(sortieDeleteForm) }}
-    {{ form_widget(sortieDeleteForm) }}
-    <button type="submit" class="btn">Valider</button>
-    {{ form_end(sortieDeleteForm) }}
+    <div class="container">
+        {{ form_start(sortieDeleteForm) }}
+        {{ form_widget(sortieDeleteForm) }}
+        <button type="submit" class="btn btn-primary">Valider</button>
+        {{ form_end(sortieDeleteForm) }}
+    </div>
 {% endblock %}

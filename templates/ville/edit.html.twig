@@ -5,8 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(villeEditForm) }}
-    {{ form_widget(villeEditForm) }}
-    <button>Envoyer</button>
-    {{ form_end(villeEditForm) }}
+    {% include 'inc/navadmin.html.twig' %}
+    <div class="container">
+        {{ form_start(villeEditForm) }}
+        {{ form_widget(villeEditForm) }}
+        <button>Envoyer</button>
+        {{ form_end(villeEditForm) }}
+    </div>
 {% endblock %}

@@ -5,77 +5,80 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(sortiesForm) }}
-    <div class="d-flex">
-        <div class="w-50">
-            {{ form_row(sortiesForm.campus) }}
-            {{ form_row(sortiesForm.nom) }}
-            <div>
+    <div class="container pt-2">
+        {{ form_start(sortiesForm) }}
+        <div class="row mx-auto">
+            <div class="col-md-6">
+                {{ form_row(sortiesForm.campus) }}
+                {{ form_row(sortiesForm.nom) }}
                 <button type="submit" class="btn btn-primary">Rechercher</button>
             </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ form_row(sortiesForm.orga) }}
+                        {{ form_row(sortiesForm.isInscrit) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ form_row(sortiesForm.noInscrit) }}
+                        {{ form_row(sortiesForm.passees) }}
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="w-50">
-            {{ form_row(sortiesForm.orga) }}
-            {{ form_row(sortiesForm.isInscrit) }}
-            {{ form_row(sortiesForm.noInscrit) }}
-            {{ form_row(sortiesForm.passees) }}
-            {{ form_end(sortiesForm) }}
-        </div>
-    </div>
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr class="d-none d-sm-table-row">
-                <th scope="col" colspan="7">Liste des sorties</th>
-                <th scope="col" colspan="1"><a href="{{ path('sortie_create') }}" title="Créer une sortie">Nouvelle sortie</a></th>
-            </tr>
-            <tr class="d-table-row d-md-none">
-                <th scope="col" colspan="8">Liste des sorties</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th>Nom</th>
-                <th>Date</th>
-                <th>Clôture</th>
-                <th>Participants</th>
-                <th>Etat</th>
-                <th>Inscrit</th>
-                <th>Organisateur</th>
-                <th>Actions</th>
-            </tr>
-            {% for sortie in sorties %}
+        {{ form_end(sortiesForm) }}
 
-                <tr{% if sortie.etat.id is same as(6) %}
-                    class="bg-danger"
-                {% elseif sortie.dateHeureDebut|date('Y-m-d H:i:s') < "now"|date('Y-m-d H:i:s') %}
-                    class="bg-success"
-                        {% endif %}>
-                    <td>{{ sortie.nom }}</td>
-                    <td>{{ sortie.dateHeureDebut | date('d/m/Y')}}</td>
-                    <td>{{ sortie.dateLimiteInscription | date('d/m/Y')}}</td>
-                    <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
-                    <td>{{ sortie.etat.libelle }}</td>
-                    <td>{% if(sortie.participants.contains(app.user)) %}
-                            oui
-                        {% else %}
-                            non
-                        {% endif %}</td>
-                    <td><a href="{{ path('user_view', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
-                    <td><a href="{{ path('sortie_view', {'id': sortie.id}) }}">Afficher</a></td>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr class="d-none d-sm-table-row">
+                    <th scope="col" colspan="7">Liste des sorties</th>
+                    <th scope="col" colspan="1"><a href="{{ path('sortie_create') }}" title="Créer une sortie">Nouvelle sortie</a></th>
                 </tr>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <td colspan="3">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
-                <td colspan="5">Total sorties : {{ sorties|length }}</td>
-            </tr>
-            </tfoot>
-        </table>
+                <tr class="d-table-row d-md-none">
+                    <th scope="col" colspan="8">Liste des sorties</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Nom</th>
+                    <th>Date</th>
+                    <th>Clôture</th>
+                    <th>Participants</th>
+                    <th>Etat</th>
+                    <th>Inscrit</th>
+                    <th>Organisateur</th>
+                    <th>Actions</th>
+                </tr>
+                {% for sortie in sorties %}
+
+                    <tr{% if sortie.etat.id is same as(6) %}
+                        class="bg-danger"
+                    {% elseif sortie.dateHeureDebut|date('Y-m-d H:i:s') < "now"|date('Y-m-d H:i:s') %}
+                        class="bg-success"
+                            {% endif %}>
+                        <td>{{ sortie.nom }}</td>
+                        <td>{{ sortie.dateHeureDebut | date('d/m/Y')}}</td>
+                        <td>{{ sortie.dateLimiteInscription | date('d/m/Y')}}</td>
+                        <td>{{ sortie.participants.count }}/{{ sortie.nbInscriptionsMax }}</td>
+                        <td>{{ sortie.etat.libelle }}</td>
+                        <td>{% if(sortie.participants.contains(app.user)) %}
+                                oui
+                            {% else %}
+                                non
+                            {% endif %}</td>
+                        <td><a href="{{ path('user_view', {'id': sortie.organisateur.id}) }}">{{ sortie.organisateur.pseudo }}</a></td>
+                        <td><a href="{{ path('sortie_view', {'id': sortie.id}) }}">Afficher</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+                    <td colspan="5">Total sorties : {{ sorties|length }}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
-
-
-
-
 {% endblock %}

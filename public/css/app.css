@@ -27,12 +27,13 @@ header h1 {
     background-color: rgba(207, 102, 160, 0.7);
 }
 
-#navbar-admin ul {
+#navbar-admin {
     background-image: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7)), url("../img/leopardskin.jpg");
-    display: flex;
-    list-style: none;
     border-radius: 10px 10px 0 0;
-    margin: -1rem -1rem 0 -1rem;
+}
+
+#navbar-admin li:hover {
+    background-color: rgba(207, 102, 160, 0.7);
 }
 
 body {
@@ -56,6 +57,7 @@ main {
     border-radius: 10px;
     width: 100%;
     min-height: 65vh;
+    margin-top: 25px;
 }
 
 .main {

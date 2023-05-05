@@ -5,8 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    {{ form_start(lieuEditForm) }}
-    {{ form_widget(lieuEditForm) }}
-    <button>Envoyer</button>
-    {{ form_end(lieuEditForm) }}
+    {% include 'inc/navadmin.html.twig' %}
+    <div class="container">
+        {{ form_start(lieuEditForm) }}
+        {{ form_widget(lieuEditForm) }}
+        <button>Envoyer</button>
+        {{ form_end(lieuEditForm) }}
+    </div>
 {% endblock %}

@@ -6,59 +6,62 @@
 
 {% block body %}
 {% include 'inc/navadmin.html.twig' %}
-    <table>
-        <thead>
-        <tr>
-            <th colspan="4">Liste des utilisateurs</th>
-            <th colspan="1"><a href="{{ path('app_register') }}" title="Créer un utilisateur">Nouvel utilisateur</a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th>Pseudo</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Etat</th>
-            <th>Actions</th>
-
-        </tr>
-        {% for user in users %}
-
+    <div class="container">
+        <table>
+            <thead>
             <tr>
-                <td><a href="{{ path('user_view', {'id': user.id}) }}">{{ user.pseudo }}</a></td>
-                <td>{{ user.lastName}}</td>
-                <td>{{ user.firstName}}</td>
-                <td>{% if(user.actif) %} Actif
-                    {% else %}
-                        Bloqué
-                    {% endif %} </td>
-
-
-                <td><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a> |
-                    {% if user.actif %}
-                    <a href="{{ path('user_statut', {
-                        'choice': 'disable',
-                        'id': user.id
-                    }) }}">Désactiver</a> |
-                    {% else %}
-                        <a href="{{ path('user_statut', {
-                            'choice': 'enable',
-                            'id': user.id
-                        }) }}">Activer</a> |
-                    {% endif %}
-                    <a href="{{ path('user_statut', {
-                        'choice': 'delete',
-                        'id': user.id
-                    }) }}">Supprimer</a>
-                </td>
+                <th colspan="4">Liste des utilisateurs</th>
+                <th colspan="1"><a href="{{ path('app_register') }}" title="Créer un utilisateur">Nouvel utilisateur</a></th>
             </tr>
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        <tr>
-            <td colspan="3">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
-            <td colspan="5">Total utilisateurs : {{ users|length }}</td>
-        </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Pseudo</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Etat</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for user in users %}
+                <tr>
+                    <td><a href="{{ path('user_view', {'id': user.id}) }}">{{ user.pseudo }}</a></td>
+                    <td>{{ user.lastName}}</td>
+                    <td>{{ user.firstName}}</td>
+                    <td>
+                        {% if(user.actif) %}
+                            Actif
+                        {% else %}
+                            Bloqué
+                        {% endif %}
+                    </td>
+
+                    <td><a href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a> |
+                        {% if user.actif %}
+                            <a href="{{ path('user_statut', {
+                                'choice': 'disable',
+                                'id': user.id
+                            }) }}">Désactiver</a> |
+                        {% else %}
+                            <a href="{{ path('user_statut', {
+                                'choice': 'enable',
+                                'id': user.id
+                            }) }}">Activer</a> |
+                        {% endif %}
+                        <a href="{{ path('user_statut', {
+                            'choice': 'delete',
+                            'id': user.id
+                        }) }}">Supprimer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="3">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+                <td colspan="5">Total utilisateurs : {{ users|length }}</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
 {% endblock %}

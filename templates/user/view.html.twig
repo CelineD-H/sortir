@@ -1,9 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | {{ user.pseudo }}{% endblock %}
+{% block title %}
+    {{ parent() }} | {{ user.pseudo }}
+{% endblock %}
 
 {% block body %}
-
+    {% if app.user is not same as(user) %}
+        {% include 'inc/navadmin.html.twig' %}
+    {% endif %}
     <div class="view-head">
         <div class="sortie-organisation">
             <img src="{{ asset("uploads/files/" ~ user.avatar) }}" alt="avatar de {{ user.pseudo }}" width="100">
@@ -26,6 +30,7 @@
             </div>
         </div>
     </div>
+    {% if app.user is same as(user) %}
     <table>
         <thead>
         <tr>
@@ -53,5 +58,5 @@
         </tr>
         </tfoot>
     </table>
-
+{% endif %}
 {% endblock %}
