@@ -28,6 +28,15 @@ class GroupeController extends AbstractController
             $entityManager->persist($group);
             $entityManager->flush();
 
+            $this->addFlash('success', "Le groupe " . $group->getNom() . " a bien été créé.");
+
+            for ($i = 0; $i < count($group->getUsers()); $i++) {
+                $this->addFlash('success', "L'utilisateur " . $group->getUsers()->get($i)->getFirstName() . " " . $group->getUsers()->get($i)->getLastName() . " a été ajouté au groupe.");
+            }
+
+            return $this->redirectToRoute('user_view', [
+                'id' => $this->getUser()->getId()
+            ]);
         }
         return $this->render('groupe/index.html.twig', [
             'groupeForm' => $form->createView()
@@ -35,7 +44,7 @@ class GroupeController extends AbstractController
     }
 
     #[Route('/list', name: 'list')]
-    public function list(Request $request, EntityManagerInterface $entityManager, GroupeRepository $groupeRepository): Response
+    public function list(Request $request, EntityManagerInterface $entityManager, GroupRepository $groupeRepository): Response
     {
         $groupes = $groupeRepository->findAll();
 
