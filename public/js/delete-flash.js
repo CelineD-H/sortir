@@ -1,14 +1,16 @@
 function deleteFlash() {
-    const flash = document.querySelector('.flash');
+    const allFlash = document.querySelectorAll('.flash');
 
-    let value = 99;
-    setInterval(frame, 10);
-    function frame() {
-        if(value === 10) {
-            flash.remove();
-        } else {
-            flash.style.opacity = "0." + value;
-            value--;
+    for (let flash of allFlash) {
+        let value = 99;
+        setInterval(frame, 10);
+        function frame() {
+            if(value === 10) {
+                flash.remove();
+            } else {
+                flash.style.opacity = "0." + value;
+                value--;
+            }
         }
     }
 }

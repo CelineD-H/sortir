@@ -1,0 +1,2 @@
+email,role,password,firstName,lastName,actif,pseudo,avatar,telephone,campus
+mail@mail.com,ROLE_USER,password,Alain,Terrieur,1,AlainTerrieur,Alan.png,0755667743,10
