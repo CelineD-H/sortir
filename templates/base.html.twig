@@ -44,18 +44,14 @@
             {% include 'inc/nav.html.twig' %}
         </header>
 
-        {% set id = 1 %}
         {% for label, messages in app.flashes %}
             {% for message in messages %}
-                <div class="flash flash-{{ label }}" id="flash-{{ id }}">
+                <div class="flash flash-{{ label }}">
                     {{ message }}
                 </div>
-
-                {% set id = id + 1 %}
-
             {% endfor %}
-
         {% endfor %}
+
         <script src="{{ asset('js/delete-flash.js') }}"></script>
 
         <main>
