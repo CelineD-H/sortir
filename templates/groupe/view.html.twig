@@ -11,7 +11,7 @@
             <thead>
             <tr>
                 <th colspan="1">{{ groupe.nom }}</th>
-                <th colspan="1"><a href="{{ path('groupe_create') }}" title="Créer un groupe">Nouveau groupe</a></th>
+                <th colspan="1"><a href="{{ path('groupe_add', { 'id': groupe.id }) }}" title="Ajouter un membre">Nouveau membre</a></th>
             </tr>
             </thead>
             <tbody>
