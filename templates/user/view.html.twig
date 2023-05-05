@@ -24,9 +24,9 @@
             </div>
             <div>
                 {% if app.user == user or is_granted('ROLE_ADMIN') %}
-                    <button onclick="location.href='{{ path('user_edit', {'id': user.id}) }}'">Modifier</button>
+                    <button class="btn btn-primary" onclick="location.href='{{ path('user_edit', {'id': user.id}) }}'">Modifier</button>
                 {% endif %}
-                <button onclick="history.back()">Retour</button>
+                <button class="btn btn-primary" onclick="history.back()">Retour</button>
             </div>
         </div>
     </div>
