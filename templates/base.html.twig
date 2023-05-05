@@ -52,9 +52,11 @@
                 </div>
 
                 {% set id = id + 1 %}
-                <script src="{{ asset('js/delete-flash.js') }}"></script>
+
             {% endfor %}
+
         {% endfor %}
+        <script src="{{ asset('js/delete-flash.js') }}"></script>
 
         <main>
             {% block body %}{% endblock %}

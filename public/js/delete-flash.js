@@ -1,21 +1,20 @@
-function deleteFlash() {
-    const allFlash = document.querySelectorAll('.flash');
+document.addEventListener("DOMContentLoaded", function() {
+    setTimeout(function () {
+        const allFlash = document.querySelectorAll('.flash');
+        const flashArray = Array.from(allFlash); // convertit la NodeList en tableau
 
-    for (let flash of allFlash) {
-        let value = 99;
-        setInterval(frame, 10);
-        function frame() {
-            if(value === 10) {
-                flash.remove();
-            } else {
-                flash.style.opacity = "0." + value;
-                value--;
+        flashArray.forEach(function (flash) {
+            let value = 99;
+            const intervalId = setInterval(frame, 10);
+            function frame() {
+                if(value === 10) {
+                    clearInterval(intervalId);
+                    flash.remove();
+                } else {
+                    flash.style.opacity = "0." + value;
+                    value--;
+                }
             }
-        }
-    }
-}
-
-setTimeout(function () {
-    deleteFlash();
-}, 5000);
-
+        });
+    }, 5000);
+});
