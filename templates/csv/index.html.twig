@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | CSV
+{% endblock %}
+
+{% block body %}
+    <h2>Insertion d'utilisateur par fichier csv</h2>
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button>submit</button>
+
+    {{ form_end(form) }}
+{% endblock %}
