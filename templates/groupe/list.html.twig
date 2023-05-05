@@ -22,8 +22,7 @@
             {% for groupe in groupes %}
 
                 <tr>
-                    <td><a href="{{ path('campus_create') }}">{{ groupe.nom }}</a></td>
-                    <td><a href="{{ path('campus_create') }}">Modifier</a></td>
+                    <td><a href="{{ path('groupe_view', { 'id': groupe.id }) }}">{{ groupe.nom }}</a></td>
                 </tr>
             {% endfor %}
             </tbody>

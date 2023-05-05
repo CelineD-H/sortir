@@ -34,7 +34,7 @@
     <table>
         <thead>
         <tr>
-            <th colspan="2">Liste des groupes</th>
+            <th colspan="1">Liste des groupes</th>
             <th colspan="1"><a href="{{ path('groupe_create') }}" title="Créer un groupe">Nouveau groupe</a></th>
         </tr>
         </thead>
@@ -42,20 +42,18 @@
         <tr>
             <th>Groupe</th>
             <th>Membres</th>
-            <th>Actions</th>
         </tr>
         {% for groupe in groups %}
 
             <tr>
                 <td><a href="{{ path('groupe_view', {'id': groupe.id}) }}">{{ groupe.nom }}</a></td>
                 <td>{{ groupe.users|length }}</td>
-                <td><a href="{{ path('campus_create') }}">Modifier</a> | <a href="{{ path('campus_create') }}">Supprimer</a></td>
             </tr>
         {% endfor %}
         </tbody>
         <tfoot>
         <tr>
-            <td colspan="2">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+            <td colspan="1">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
             <td colspan="1">Total groupes : {{ groups|length }}</td>
         </tr>
         </tfoot>
