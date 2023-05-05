@@ -22,14 +22,14 @@
             {% for membre in groupe.users %}
 
                 <tr>
-                    <td><a href="{{ path('user_view', { 'id': membre.id }) }}">{{ membre.nom }}</a></td>
-                    <td><a href="{{ path('campus_create') }}">Modifier</a> | <a href="{{ path('campus_create') }}">Supprimer</a></td>
+                    <td><a href="{{ path('user_view', { 'id': membre.id }) }}">{{ membre.pseudo }}</a></td>
+                    <td><a href="{{ path('user_view', { 'id': membre.id }) }}">Voir profil</a></td>
                 </tr>
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="2">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
+                <td colspan="1">Date du jour : {{ "now" | date ("d/m/Y") }}</td>
                 <td colspan="1">Total membres : {{ groupe.users|length }}</td>
             </tr>
             </tfoot>

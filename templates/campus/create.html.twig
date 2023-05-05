@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Campus{% endblock %}
+{% block title %}{{ parent() }} | Campus{% endblock %}
 
 {% block body %}
     {% include 'inc/navadmin.html.twig' %}
+
+    <h2>Création de Campus</h2>
 
     <div class="container">
         {{ form_start(campusForm) }}
