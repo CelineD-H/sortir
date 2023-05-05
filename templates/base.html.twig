@@ -24,17 +24,21 @@
 <body>
     <div class="container">
         <header>
-            <div class="col col-lg-8 mx-auto d-flex mt-2">
-                <a href="{{ path('sortie_home') }}"><img src="{{ asset('img/logo.png') }}" alt="Logo du site" width="150"></a>
-
-                <div class="overflow-auto">
+            <div class="row align-items-center">
+                <div class="col-2">
+                    <a href="{{ path('sortie_home') }}"><img src="{{ asset('img/logo.png') }}" alt="Logo du site" width="150"></a>
+                </div>
+                <div class="col-8 text-center">
                     <h1>AdopteUnDev.com</h1>
                     <h2>Numéro 1 des sites de rencontre à l'ENI</h2>
                 </div>
-
-                {% if app.user %}
-                    <a class="avatarBox d-none d-lg-block" href="{{ path('user_view', { 'id': app.user.id }) }}"><img src="{{ asset("uploads/files/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar">{{ app.user.pseudo }}</a>
-                {% endif %}
+                <div class="col-2">
+                    {% if app.user %}
+                    <div class="avatarBox">
+                        <a class="avatarBox d-none d-lg-block" href="{{ path('user_view', { 'id': app.user.id }) }}"><img src="{{ asset("uploads/files/" ~ app.user.avatar) }}" alt="Avatar de {{ app.user.lastName }}" class="avatar">{{ app.user.pseudo }}</a>
+                    </div>
+                    {% endif %}
+                </div>
             </div>
 
             {% include 'inc/nav.html.twig' %}
